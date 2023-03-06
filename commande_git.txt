@@ -1,0 +1,17 @@
+touch FICHIER.ext       //créer un fichier
+
+git init                //initialise notre code
+---> toujours le faire & permet de se connecter à github
+
+Pour se connecter à son git bash :
+git config --global user.name 'USER'        //nom d'utilisateur github 
+git config --global user.email 'EMAIL'      // email sur github 
+
+git add FICHIER         //présauvegarde le fichier 
+
+git status              // permet de voir les fichiers présauvegardés
+
+git rm --cached FICHIER     // pour retirer un fichier de la présauvegarde
+
+git checkout --FICHIER      // Pour récupérer des fichiers supprimés
+
