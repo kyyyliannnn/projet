@@ -15,3 +15,11 @@ git rm --cached FICHIER     // pour retirer un fichier de la présauvegarde
 
 git checkout --FICHIER      // Pour récupérer des fichiers supprimés
 
+git commit              // envoie la sauvegarde sur github
+---> appuyer sur i pourr écrire ---> echap puis ':wq' pour quitter
+
+git commit -m 'COMMENTAIRE'     //pour aller plus vite
+
+mettre les fichiers qu'on ne veut pas sauvegarder dans .gitignore
+
+Flemme de s'occuper des branches
