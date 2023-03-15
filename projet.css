@@ -83,6 +83,8 @@ input[type=text] {
     border-radius: 20px;
     border: solid 1px black;
     background-color: #FFF6F6;
+    font-size: 1.2em;
+    padding: 0 1vw;
 }
 
 input[type=password]{
@@ -92,6 +94,8 @@ input[type=password]{
     border-radius: 20px;
     border: solid 1px black;
     background-color: #FFF6F6;
+    font-size: 1.2em;
+    padding: 0 1vw;
 }
 
 label {
@@ -111,4 +115,11 @@ input[type=submit]{
     position: relative;
     top:40vh;
     left:10vw
+}
+
+form a {
+    color: black;
+    margin-top:2vh;
+    margin-left: 10vw;
+    font-style: italic;
 }

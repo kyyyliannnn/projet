@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="projet.css">
         <meta charset="UTF-8">
         <meta name="author" content="Kylian, Eva">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
     </head>
     <body>
@@ -21,6 +22,7 @@
                 <input type="text" name="pseudo">
                 <label for="pseudo">Mot de passe</label>
                 <input type="password" name="pseudo">
+                <a href="">Mot de passe oublié ?</a>
                 <input type="submit" class="button">
             </form>
         </div>
