@@ -1,6 +1,6 @@
 <?php 
 
-function menu($texte){
+function menu($texte,$link){
     echo '<header>
             <a href="" class="icone_menu">
                 <img src="image/loupe.png" alt="">
@@ -11,7 +11,7 @@ function menu($texte){
                 <p>Contact</p>
             </a>
             <hr>
-            <a href="'.$texte.'.php" class="button">'.$texte.'</a>
+            <a href="'.$link.'.php" class="button">'.$texte.'</a>
 </header>';
 }
 
