@@ -26,9 +26,7 @@
                 <input type="submit" class="button" value="Envoyer">
             </form>
         </div>
-        <div class="element_flex2">
-            <img id="gens" src="image/gens.png" alt="">
-        </div>
+        <?php image(); ?>
     </div>
     </body>
 </html>

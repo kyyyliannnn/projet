@@ -115,8 +115,32 @@ input[type=submit]{
 #gens {
     width: 40vw;
     position: relative;
-    top:40vh;
+    bottom:15vh;
     left:10vw
+}
+
+#bulle {
+    width: 25vw;
+    position: relative;
+    top:10vh;
+    left:10vw;
+}
+
+#bulle_texte {
+    color:#DA7760;
+    width: 20vw;
+    font-size: 1.7em;
+    text-align: center;
+    position: relative;
+    left: 12.5vw;
+    bottom:19vh;
+}
+
+#logo {
+    width: 10vw;
+    position: absolute;
+    top:4vh;
+    left:2vw
 }
 
 form a {
