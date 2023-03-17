@@ -15,7 +15,6 @@
             if (!$connexion) {
                 echo 'Pas de connexion au serveur '; exit;
             }
-            echo 'connexion réussie! <br/>';
             mysqli_set_charset($connexion, 'utf8');
         
             $req = 'SELECT * FROM `Utilisateur` WHERE pseudo="'.$pseudo.'"' ; 

@@ -1,5 +1,42 @@
 <?php
-    include("menu.php")
+    include("menu.php");
+
+    $mail = $_POST['mail'];
+    $mdp = $_POST['mdp'];
+    $msg="";
+    
+    if (isset($_POST['submit'])){
+        if (empty($mail) || empty($mdp)){
+            $msg="Veuillez remplir tous les champs";
+        }
+        else {
+            $connexion = mysqli_connect ('localhost',
+            'root', 'root', 'projet' ) ;
+            if (!$connexion) {
+                echo 'Pas de connexion au serveur '; exit;
+            }
+            mysqli_set_charset($connexion, 'utf8');
+            $req = 'SELECT * FROM `Utilisateur` WHERE mail="'.$mail.'"' ; 
+            $resultat = mysqli_query($connexion, $req);
+            $ligne=mysqli_fetch_assoc($resultat);
+            if ($ligne || !filter_var($mail, FILTER_VALIDATE_EMAIL)) {
+                $msg="Le mail est déjà utilisé ou mal écrit";
+            }
+            else {
+               if (strlen($mdp)<6){
+                $msg="Le mot de passe est trop court";
+               }
+               else {
+                $msg="OK";
+               }
+            }
+            mysqli_close($connexion);
+        }
+        
+    }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -17,12 +54,13 @@
     <div class="element_flex">
         <div class="element_flex1">
             <h1>Rejoins de nombreuses communautés étudiantes</h1>
-            <form action="accueil.php" method="post">
+            <form action="accueil2.php" method="post">
                 <label for="Mail">Mail</label>
-                <input type="text" name="Mail">
+                <input type="text" name="mail">
                 <label for="mdp">Mot de passe (6 caractères minimum)</label>
                 <input type="password" name="mdp">
-                <input type="submit" class="button" value="S'inscrire">
+                <p><?php echo $msg; ?></p>
+                <input type="submit" name='submit' class="button" value="S'inscrire">
             </form>
         </div>
         <?php image(); ?>
