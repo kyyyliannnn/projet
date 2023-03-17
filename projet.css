@@ -127,13 +127,13 @@ input[type=submit]{
 }
 
 #bulle_texte {
-    color:#DA7760;
+    color:#A14A3E;
     width: 20vw;
     font-size: 1.7em;
     text-align: center;
     position: relative;
     left: 12.5vw;
-    bottom:19vh;
+    bottom:18vh;
 }
 
 #logo {
@@ -148,4 +148,8 @@ form a {
     margin-top:2vh;
     margin-left: 10vw;
     font-style: italic;
+}
+
+form p {
+    color: #A14A3E;
 }
