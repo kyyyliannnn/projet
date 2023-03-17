@@ -55,6 +55,10 @@ header .button {
     margin-right: 3vw;
 }
 
+.button:hover {
+    background-color: #b85a45;
+}
+
 .element_flex {
     display: flex;
     width: 100%;
