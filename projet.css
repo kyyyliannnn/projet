@@ -157,3 +157,49 @@ form a {
 form p {
     color: #A14A3E;
 }
+
+#menu_gauche {
+    padding: 15vh 1vw;
+    position: fixed;
+    border-right: solid 1px #DA7760;
+    width: 15vw;
+    height: 100%;
+}
+
+.menu_gauche_bouton {
+    display: flex;
+    margin-top: 1vh;
+    height: 7vh;
+    text-decoration: none;
+}
+
+.menu_gauche_bouton p {
+    font-weight: 800;
+    margin-top: 3.5vh;
+    margin-left: 2vw;
+}
+
+.menu_gauche_bouton:hover .o{
+    text-decoration: underline;  
+    text-decoration-color: #DA7760;
+}
+
+.menu_gauche_bouton:hover .n{
+    text-decoration: underline;  
+    text-decoration-color: #221F30;
+}
+
+.menu_gauche_bouton img {
+    height: 5vh;
+    margin-top: 2vh;
+}
+
+.o {
+    color: #DA7760;
+    
+}
+
+.n {
+    color:#221F30;
+    text-decoration-color: #221F30;
+}
