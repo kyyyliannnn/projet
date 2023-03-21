@@ -77,12 +77,12 @@ header .button {
     font-size: 2.5em;
 }
 
-form {
+.element_flex1 form {
     margin-top: 3vh;
     display: grid;
 }
 
-input[type=text] {
+.element_flex1 input[type=text] {
     margin: 1vh 0;
     width: 20vw;
     height: 6vh;
@@ -93,7 +93,7 @@ input[type=text] {
     padding: 0 1vw;
 }
 
-input[type=password]{
+.element_flex1 input[type=password]{
     margin: 1vh 0;
     width: 20vw;
     height: 6vh;
@@ -108,7 +108,7 @@ label {
     margin-top: 2vh;
 }
 
-input[type=submit]{
+.element_flex1 input[type=submit]{
     border: none;
     height: 6vh;
     width: 12vw;
@@ -202,4 +202,156 @@ form p {
 .n {
     color:#221F30;
     text-decoration-color: #221F30;
+}
+
+.publication {
+    margin-top: 5vh;
+    position: relative;
+    left: 25vw;
+}
+
+.entete {
+    display: flex;
+    width: 40vw;
+}
+
+
+.pdp {
+    position: relative;
+    display: flex;
+    width: 3vw;
+    height: 3vw;
+    background-color: #221F30;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.pdp img {
+    position: relative;
+    width: 100%;
+}
+
+.pseudo {
+    position: relative;
+    top: 1.5vh;
+    color: #221F30;
+    font-weight: 800;
+    text-decoration: none;
+    margin-left: 1vw;
+
+}
+
+.image {
+    margin-top: 2vh;
+    width: 40vw;
+    border: solid 2px white;
+}
+
+.image img{
+    width: 100%;
+}
+
+.texte p {
+    font-style: italic;
+}
+
+#commentaire {
+    color: #DA7760;
+    border: none;
+    border-bottom: solid 1px #DA7760;
+    background-color: #FFF6F6;
+    font-size: 1em;
+    width: 40vw;
+    text-align: left;
+    font-style: italic;
+    cursor: pointer;
+}
+
+#commentaire:hover {
+    opacity: 0.5;
+}
+
+#commentaire2 {
+    color: #DA7760;
+    border: none;
+    border-bottom: solid 1px #DA7760;
+    background-color: #FFF6F6;
+    font-size: 1em;
+    width: 40vw;
+    text-align: left;
+    font-style: italic;
+    cursor: pointer;
+}
+
+#commentaire2:hover {
+    opacity: 0.5;
+}
+
+.bouton_icone {
+    width: 3vw;
+    height: 3vw;
+    background-color: #FFF6F6;
+    border: none;
+    cursor: pointer;
+}
+
+.bouton_icone img {
+    width: 100%;
+}
+
+.bouton_icone:hover {
+    opacity: 0.5;
+}
+
+.bouton_icone_boite {
+    display: flex;
+    position: absolute;
+    right: 0;
+}
+
+.com {
+    display: flex;
+    margin-top: 2vh;
+}
+
+.com p {
+    color :#DA7760;
+    margin-left: 1vw;
+}
+
+#com_box {
+    display: none;
+}
+
+.bouton_icone_boite form {
+    width: 5vw;
+    height: 2vw;
+    display: flex;
+    position: relative;
+    margin-top: 1vh;
+}
+
+.bouton_icone_boite form img {
+    position: relative;
+    left: 2.5vw;
+}
+
+#like {
+    display: flex;
+    width: 5vw;
+    height: 2vw;
+    position: relative;
+    border: none;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0;
+    background-color: #FFF6F6;
+}
+
+#like:hover {
+    opacity: 0.5;
+}
+
+.display {
+    display: flex;
 }

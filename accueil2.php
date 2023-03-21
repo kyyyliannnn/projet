@@ -27,16 +27,13 @@
                 $msg="Le mot de passe est trop court";
                }
                else {
-                $msg="OK";
+                $req2 = 'INSERT INTO Utilisateur (mail, mdp) VALUES ("'.$mail.'","'.$mdp.'")';
+                $resultat = mysqli_query($connexion, $req2);
                }
             }
             mysqli_close($connexion);
-        }
-        
+        }      
     }
-
-
-
 ?>
 
 <!DOCTYPE html>
