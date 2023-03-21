@@ -255,7 +255,7 @@ form p {
     font-style: italic;
 }
 
-#commentaire {
+.commentaire {
     color: #DA7760;
     border: none;
     border-bottom: solid 1px #DA7760;
@@ -267,23 +267,7 @@ form p {
     cursor: pointer;
 }
 
-#commentaire:hover {
-    opacity: 0.5;
-}
-
-#commentaire2 {
-    color: #DA7760;
-    border: none;
-    border-bottom: solid 1px #DA7760;
-    background-color: #FFF6F6;
-    font-size: 1em;
-    width: 40vw;
-    text-align: left;
-    font-style: italic;
-    cursor: pointer;
-}
-
-#commentaire2:hover {
+.commentaire:hover {
     opacity: 0.5;
 }
 
@@ -319,7 +303,7 @@ form p {
     margin-left: 1vw;
 }
 
-#com_box {
+.com_box {
     display: none;
 }
 
@@ -354,4 +338,8 @@ form p {
 
 .display {
     display: flex;
+}
+
+.publi_box {
+    display: inline;
 }

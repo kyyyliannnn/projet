@@ -68,8 +68,8 @@ function publi($publi){
  <div class="texte">
      <p>Une journée banale...</p>
  </div>
- <button id="commentaire" onclick="affiche()">Voir les commentaires</button>
- <div id="com_box">
+ <button class="commentaire" id="commentaire'.$publi.'" onclick="affiche('.$publi.')">Voir les commentaires</button>
+ <div class="com_box" id="com_box'.$publi.'">
  <div class="com">
      <a href="" class="pdp"><img src="image/personne1.png"></a>
      <p>Geniaaaal !</p>
@@ -82,7 +82,7 @@ function publi($publi){
      <a href="" class="pdp"><img src="image/personne1.png"></a>
      <p>wow !</p>
  </div>
- <button id="commentaire2" onclick="cache()">Cacher les commentaires</button>
+ <button class="commentaire" onclick="cache('.$publi.')">Cacher les commentaires</button>
  </div>';
 
 

@@ -14,22 +14,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
         <script>
-            function affiche(){
-                var c = document.getElementById('com_box');
+            function affiche(publi){
+                var c = document.getElementById('com_box' + publi);
                 c.style.display = "inline";
-                var d = document.getElementById('commentaire');
+                var d = document.getElementById('commentaire'+publi);
                 d.style.display = "none";
             }
 
-            function cache(){
-                var c = document.getElementById('com_box');
+            function cache(publi){
+                var c = document.getElementById('com_box'+publi);
                 c.style.display = "none";
-                var d = document.getElementById('commentaire');
+                var d = document.getElementById('commentaire'+publi);
                 d.style.display = "inline";
             }
 
 
-            function afficheMenu(){
+            function afficheMenu(publi){
                 var c = document.getElementById("option");
                 c.style.display = "inline";
             }
@@ -37,9 +37,16 @@
         </script>
     </head>
     <body class="display">
-        <?php menu_gauche(0);
+        <?php menu_gauche(0);?>
+<div class="publi_box">
+<?php 
         publi(2); 
+        publi(3); 
+        publi(4); 
+        publi(5); 
         ?>
+</div>
+
         
     </body>
 </html>
