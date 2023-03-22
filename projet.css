@@ -343,3 +343,19 @@ form p {
 .publi_box {
     display: inline;
 }
+
+.message {
+    color: #DA7760;
+    border: none;
+    border-bottom: solid 1px #DA7760;
+    background-color: #FFF6F6;
+    font-size: 1em;
+    width: 40vw;
+    text-align: left;
+    cursor:text;
+}
+
+.message::placeholder {
+    color: #DA7760;
+    opacity: 0.5;
+}
