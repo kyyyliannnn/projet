@@ -1,6 +1,5 @@
 <?php
-
-$_SESSION["utilisateur"]=1;
+session_start();
 
 function like($publi){
     if (isset($_POST['like'.$publi])){
@@ -61,7 +60,7 @@ function message($publi){
 
 function commentaire($texte,$pdp){
     echo  '<div class="com">
-    <a href="" class="pdp"><img src="image/personne'.$pdp.'.png"></a>
+    <a href="" class="pdp"><img src="pdp/personne'.$pdp.'.png"></a>
     <p>'.$texte.'</p>
         </div>';
 }
@@ -85,6 +84,54 @@ function affiche($publi){
     }
 }
 
+function coPubli($publi){
+    $connexion = mysqli_connect ('localhost',
+    'root', 'root', 'projet' ) ;
+    if (!$connexion) {
+            echo 'Pas de connexion au serveur '; exit;
+    }
+    mysqli_set_charset($connexion, 'utf8');
+    $req1= 'SELECT * FROM publication WHERE id="'.$publi.'"';
+    $resultat = mysqli_query($connexion, $req1);
+    $ligne=mysqli_fetch_assoc($resultat);
+    return $ligne;
+}
+
+function coUtilisateur($publi){
+    $ligne = coPubli($publi);
+
+    $connexion = mysqli_connect ('localhost',
+    'root', 'root', 'projet' ) ;
+    if (!$connexion) {
+            echo 'Pas de connexion au serveur '; exit;
+    }
+    mysqli_set_charset($connexion, 'utf8');
+
+    $req= 'SELECT * FROM utilisateur WHERE id="'.$ligne["utilisateur"].'"';
+    $resultat1 = mysqli_query($connexion, $req);
+    $utilisateur=mysqli_fetch_assoc($resultat1);
+    return $utilisateur;
+}
+
+function profil($publi){
+    $utilisateur = coUtilisateur($publi);
+
+    echo ' <a href="" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
+    <a href="" class="pseudo">'.$utilisateur['pseudo'].'</a>';
+}
+
+function publication($publi){
+    $ligne = coPubli($publi);
+    $utilisateur = coUtilisateur($publi);
+
+    echo ' <div class="image">
+    <img src="publication/image'.$utilisateur['id'].'-'.$ligne['id'].'.png">
+</div>
+<div class="texte">
+    <p>'.$ligne['message'].'</p>
+</div>';
+}
+
 
 
 
@@ -94,10 +141,9 @@ function publi($publi){
     $like = coeur($publi);
 
  echo '<div class="publication">
- <div class="entete">
-     <a href="" class="pdp"><img src="image/personne1.png"></a>
-     <a href="" class="pseudo">Laura32_</a>
-     <div class="bouton_icone_boite">
+ <div class="entete">';
+    echo profil($publi);
+     echo '<div class="bouton_icone_boite">
      <form action="accueil_publi.php" method="post">
      <img src="image/coeur_'.$like.'.png">
      <input  class="bouton_icone" type="submit" name="like'.$publi.'" value="" id="like"></form>
@@ -105,14 +151,11 @@ function publi($publi){
      <button class="bouton_icone" onclick="afficheMenu()"><img src="image/option.png"></button>
      </div>
 
- </div>
- <div class="image">
-     <img src="image/image1.png">
- </div>
- <div class="texte">
-     <p>Une journée banale...</p>
- </div>
- <button class="commentaire" id="commentaire'.$publi.'" onclick="affiche('.$publi.')">Voir les commentaires</button>
+ </div>';
+
+ echo publication($publi);
+ 
+ echo ' <button class="commentaire" id="commentaire'.$publi.'" onclick="affiche('.$publi.')">Voir les commentaires</button>
 
  
  <div class="com_box" id="com_box'.$publi.'">
@@ -122,12 +165,7 @@ function publi($publi){
  affiche($publi);
  echo '<button class="commentaire" onclick="cache('.$publi.')">Cacher les commentaires</button>
  </div>';
-
-
- 
  echo'</div>';
-
-
 
 }
 

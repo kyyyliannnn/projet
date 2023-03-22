@@ -1,4 +1,5 @@
 <?php
+session_start();
     include("menu.php");
 
     $pseudo = $_POST['pseudo'];
@@ -28,7 +29,10 @@
                     $msg="Erreur dans le pseudo ou le mot de passe";
                }
                else {
-                echo "connecté";
+                $_SESSION['utilisateur']=$ligne['id'];
+                $_SESSION['pseudo']=$ligne['pseudo'];
+                $_SESSION['pdp']=$ligne['pdp'];
+                header('location:accueil_publi.php');
                }
             }
             mysqli_close($connexion);
