@@ -256,6 +256,7 @@ form p {
 }
 
 .commentaire {
+    margin-top: 2vh;
     color: #DA7760;
     border: none;
     border-bottom: solid 1px #DA7760;
@@ -345,14 +346,13 @@ form p {
 }
 
 .message {
+    margin-left: 1vw;
     color: #DA7760;
     border: none;
-    border-bottom: solid 1px #DA7760;
     background-color: #FFF6F6;
     font-size: 1em;
-    width: 40vw;
-    text-align: left;
     cursor:text;
+    margin-top: 1vw;
 }
 
 .message::placeholder {

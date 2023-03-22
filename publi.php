@@ -1,14 +1,20 @@
 <?php
 session_start();
 
+function data(){
+    $connexion = mysqli_connect ('localhost',
+    'root', 'root', 'projet' ) ;
+    if (!$connexion) {
+        echo 'Pas de connexion au serveur '; exit;
+    }
+    mysqli_set_charset($connexion, 'utf8');
+    return $connexion;
+}
+
 function like($publi){
     if (isset($_POST['like'.$publi])){
-        $connexion = mysqli_connect ('localhost',
-            'root', 'root', 'projet' ) ;
-            if (!$connexion) {
-                echo 'Pas de connexion au serveur '; exit;
-            }
-            mysqli_set_charset($connexion, 'utf8');
+            $connexion=data();
+
             $req1= 'SELECT * FROM aime WHERE utilisateur="'.$_SESSION['utilisateur'].'"'.' AND publication="'.$publi.'"';
             $resultat = mysqli_query($connexion, $req1);
             $ligne=mysqli_fetch_assoc($resultat);
@@ -23,12 +29,8 @@ function like($publi){
 }
 
 function coeur($publi){
-    $connexion = mysqli_connect ('localhost',
-            'root', 'root', 'projet' ) ;
-    if (!$connexion) {
-        echo 'Pas de connexion au serveur '; exit;
-     }
-    mysqli_set_charset($connexion, 'utf8');
+    $connexion=data();
+
     $req1= 'SELECT * FROM aime WHERE utilisateur="'.$_SESSION['utilisateur'].'"'.' AND publication="'.$publi.'"';
     $resultat = mysqli_query($connexion, $req1);
     $ligne=mysqli_fetch_assoc($resultat);
@@ -42,12 +44,7 @@ function coeur($publi){
 
 function message($publi){
     if (!empty($_POST['message'.$publi])){
-        $connexion = mysqli_connect ('localhost',
-            'root', 'root', 'projet' ) ;
-            if (!$connexion) {
-                echo 'Pas de connexion au serveur '; exit;
-            }
-            mysqli_set_charset($connexion, 'utf8');
+        $connexion=data();
             $req1= 'SELECT * FROM commentaire WHERE utilisateur="'.$_SESSION['utilisateur'].'"'.' AND publication="'.$publi.'"'.' AND texte="'.$_POST['message'.$publi].'"';
             $resultat = mysqli_query($connexion, $req1);
             $ligne=mysqli_fetch_assoc($resultat);
@@ -66,12 +63,7 @@ function commentaire($texte,$pdp){
 }
 
 function affiche($publi){
-    $connexion = mysqli_connect ('localhost',
-        'root', 'root', 'projet' ) ;
-    if (!$connexion) {
-            echo 'Pas de connexion au serveur '; exit;
-    }
-    mysqli_set_charset($connexion, 'utf8');
+    $connexion=data();
     $req1= 'SELECT * FROM commentaire WHERE publication="'.$publi.'"';
     $resultat = mysqli_query($connexion, $req1);
     $ligne=mysqli_fetch_assoc($resultat);
@@ -85,12 +77,7 @@ function affiche($publi){
 }
 
 function coPubli($publi){
-    $connexion = mysqli_connect ('localhost',
-    'root', 'root', 'projet' ) ;
-    if (!$connexion) {
-            echo 'Pas de connexion au serveur '; exit;
-    }
-    mysqli_set_charset($connexion, 'utf8');
+    $connexion=data();
     $req1= 'SELECT * FROM publication WHERE id="'.$publi.'"';
     $resultat = mysqli_query($connexion, $req1);
     $ligne=mysqli_fetch_assoc($resultat);
@@ -100,12 +87,7 @@ function coPubli($publi){
 function coUtilisateur($publi){
     $ligne = coPubli($publi);
 
-    $connexion = mysqli_connect ('localhost',
-    'root', 'root', 'projet' ) ;
-    if (!$connexion) {
-            echo 'Pas de connexion au serveur '; exit;
-    }
-    mysqli_set_charset($connexion, 'utf8');
+    $connexion=data();
 
     $req= 'SELECT * FROM utilisateur WHERE id="'.$ligne["utilisateur"].'"';
     $resultat1 = mysqli_query($connexion, $req);
@@ -133,7 +115,20 @@ function publication($publi){
 }
 
 
+function ecrire($publi){
+    $connexion=data();
 
+    $req= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION["utilisateur"].'"';
+    $resultat1 = mysqli_query($connexion, $req);
+    $utilisateur=mysqli_fetch_assoc($resultat1);
+
+    echo '<div class="com">
+    <a href="" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
+    <form action="accueil_publi.php" method="post" >
+    <input type="texte" name="message'.$publi.'" class="message" placeholder="Ecrire un commentaire...">
+    </form>
+    </div>' ;
+}
 
 function publi($publi){
     echo like($publi);
@@ -158,11 +153,11 @@ function publi($publi){
  echo ' <button class="commentaire" id="commentaire'.$publi.'" onclick="affiche('.$publi.')">Voir les commentaires</button>
 
  
- <div class="com_box" id="com_box'.$publi.'">
- <form action="accueil_publi.php" method="post" >
- <input type="texte" name="message'.$publi.'" class="message" placeholder="Ecrire un commentaire...">
- </form>';
+ <div class="com_box" id="com_box'.$publi.'">';
+
+
  affiche($publi);
+ ecrire($publi);
  echo '<button class="commentaire" onclick="cache('.$publi.')">Cacher les commentaires</button>
  </div>';
  echo'</div>';
