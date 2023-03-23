@@ -107,7 +107,7 @@ function publication($publi){
     $utilisateur = coUtilisateur($publi);
 
     echo ' <div class="image">
-    <img src="publication/image'.$utilisateur['id'].'-'.$ligne['id'].'.png">
+    <img src="publication/image'.$utilisateur['id'].'-'.$ligne['numero'].'.png">
 </div>
 <div class="texte">
     <p>'.$ligne['message'].'</p>

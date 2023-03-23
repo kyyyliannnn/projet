@@ -40,10 +40,16 @@
         <?php menu_gauche(0);?>
 <div class="publi_box">
 <?php 
-        publi(2); 
-        publi(3); 
-        publi(4); 
-        publi(5); 
+    $connexion = data();
+    $req1= 'SELECT * FROM publication ORDER BY id DESC ';
+    $resultat = mysqli_query($connexion, $req1);
+    $ligne=mysqli_fetch_assoc($resultat);
+    while($ligne!=null){
+        publi($ligne['id']);
+        $ligne=mysqli_fetch_assoc($resultat);
+    }
+
+    mysqli_close($connexion);
         ?>
 </div>
 

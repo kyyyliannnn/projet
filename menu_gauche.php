@@ -22,6 +22,10 @@ function menu_gauche($i){
         <img src="image/perso_'.$icone[3].'.png">
         <p class="'.$icone[3].'"> PROFIL </p>
         </a> 
+    <a href="accueil.php" class="menu_gauche_bouton" >
+        <img src="image/deconnexion.png">
+        <p class="o"> DECONNEXION </p>
+    </a> 
 </div>';
 }
 
