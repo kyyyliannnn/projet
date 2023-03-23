@@ -359,3 +359,86 @@ form p {
     color: #DA7760;
     opacity: 0.5;
 }
+
+.publier_box{
+    position: relative;
+    display: inline;
+    left: 25vw;
+    margin-top: 15vh;
+}
+
+.publier_box img {
+    width: 8vw;
+    position: relative;
+    left: 21vw;
+}
+
+.publier_box p {
+    position: relative;
+    font-weight: 800;
+    font-size: 1.2em;
+    left: 19vw;
+}
+
+.publier_box input[type="file"]{
+    z-index: -1;
+    position: absolute;
+}
+
+.publier_box form {
+    display: grid;
+    margin-top: 5vh;
+}
+
+.importer {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100%;
+    left:26vw;
+}
+
+#importer {
+    display: inline-block;
+    position: relative;
+    background-color: #DA7760;
+    border-radius: 20px;
+    color: white;
+    padding: 1vh 5vw;
+    top: -3vh;
+    right:8.2vw;
+    cursor: pointer;
+}
+
+.publier_box form input[type="text"]{
+    width: 50vw;
+    height: 5vh;
+    background-color: #FFF6F6;
+    border: dashed 1px #221F30;
+    margin-top: 5vh;
+    padding: 0 2vw;
+    font-size: 1em;
+}
+
+.publier_box form input[type="text"]::placeholder{
+    font-style: italic;
+
+}
+
+.publier_box form input[type="submit"]{
+    background-color: #DA7760;
+    border-radius: 20px;
+    color: white;
+    height: 5vh;
+    width: 15.5vw;
+    border: none;
+    font-size: 1em;
+    position: relative;
+    margin-left:17.5vw;
+    text-align: center;
+    margin-top: 7vh;
+    cursor: pointer;
+}  
+
+
