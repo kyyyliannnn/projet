@@ -213,6 +213,7 @@ form p {
 .entete {
     display: flex;
     width: 40vw;
+    margin-top: 1vh;
 }
 
 
@@ -441,4 +442,36 @@ form p {
     cursor: pointer;
 }  
 
+#rechercher {
+    position: relative;
+    left:25vw;
+}
 
+#recherche_form input {
+    background-color: #FFF6F6;
+    border: none;
+    width: 50vw;
+    font-size: 1.2em;
+    margin-top: 2vh;
+    padding: 2vh 1vw;
+    color:#DA7760;
+}
+
+#recherche_form{
+    border-bottom: solid 1px #DA7760;
+}
+
+#recherche_form img {
+    width: 2vw;
+    position: relative;
+    top:1vh;
+}
+
+#recherche_form input::placeholder{
+    color: #DA7760;
+    font-style: italic;
+}
+
+#resultat {
+    margin-top: 2vh;
+}

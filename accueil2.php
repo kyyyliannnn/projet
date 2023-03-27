@@ -1,7 +1,8 @@
 <?php
+session_start(); 
     include("menu.php");
 
-    $mail = $_POST['mail'];
+    $mail = $_POST['mail']; 
     $mdp = $_POST['mdp'];
     $msg="";
     
@@ -15,7 +16,9 @@
             if (!$connexion) {
                 echo 'Pas de connexion au serveur '; exit;
             }
-            mysqli_set_charset($connexion, 'utf8');
+            mysqli_set_charset($connexion, 'utf8'); 
+            $mail = mysqli_real_escape_string($connexion,$mail);
+            $mdp = mysqli_real_escape_string($connexion,$mdp);
             $req = 'SELECT * FROM `Utilisateur` WHERE mail="'.$mail.'"' ; 
             $resultat = mysqli_query($connexion, $req);
             $ligne=mysqli_fetch_assoc($resultat);
@@ -27,7 +30,7 @@
                 $msg="Le mot de passe est trop court";
                }
                else {
-                $req2 = 'INSERT INTO Utilisateur (mail, mdp) VALUES ("'.$mail.'","'.$mdp.'")';
+                $req2 = 'INSERT INTO Utilisateur (mail, mdp) VALUES ("'.$mail.'","'.md5($mdp).'")';
                 $resultat = mysqli_query($connexion, $req2);
                }
             }
@@ -52,7 +55,7 @@
         <div class="element_flex1">
             <h1>Rejoins de nombreuses communautés étudiantes</h1>
             <form action="accueil2.php" method="post">
-                <label for="Mail">Mail</label>
+                <label for="mail">Mail</label>
                 <input type="text" name="mail">
                 <label for="mdp">Mot de passe (6 caractères minimum)</label>
                 <input type="password" name="mdp">

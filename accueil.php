@@ -12,27 +12,27 @@ session_start();
         }
         else {
             $connexion = mysqli_connect ('localhost',
-            'root', 'root', 'projet' ) ;
-            if (!$connexion) {
+            'root', 'root', 'projet' ) ; //chercher serveur 
+            if (!$connexion) { //condition
                 echo 'Pas de connexion au serveur '; exit;
             }
-            mysqli_set_charset($connexion, 'utf8');
+            mysqli_set_charset($connexion, 'utf8'); //voila
         
-            $req = 'SELECT * FROM `Utilisateur` WHERE pseudo="'.$pseudo.'"' ; 
-            $resultat = mysqli_query ($connexion, $req);
+            $req = 'SELECT * FROM `Utilisateur` WHERE pseudo="'.$pseudo.'"' ; //requete 
+            $resultat = mysqli_query ($connexion, $req); //executer 
             if (!$resultat) {
                 $msg="Erreur dans le pseudo ou le mot de passe";
             }
             else {
-               $ligne=mysqli_fetch_assoc($resultat);
-               if ($mdp != $ligne['mdp']){
-                    $msg="Erreur dans le pseudo ou le mot de passe";
+               $ligne=mysqli_fetch_assoc($resultat); //recuperer la premiere ligne de resultat 
+               if (md5($mdp) === $ligne['mdp']){
+                    $_SESSION['utilisateur']=$ligne['id'];
+                    $_SESSION['pseudo']=$ligne['pseudo'];
+                    $_SESSION['pdp']=$ligne['pdp'];
+                    header('location:accueil_publi.php');
                }
                else {
-                $_SESSION['utilisateur']=$ligne['id'];
-                $_SESSION['pseudo']=$ligne['pseudo'];
-                $_SESSION['pdp']=$ligne['pdp'];
-                header('location:accueil_publi.php');
+                $msg="Erreur dans le pseudo ou le mot de passe";
                }
             }
             mysqli_close($connexion);

@@ -110,7 +110,7 @@ function publication($publi){
     <img src="publication/image'.$utilisateur['id'].'-'.$ligne['numero'].'.png">
 </div>
 <div class="texte">
-    <p>'.$ligne['message'].'</p>
+    <p>'.$ligne['texte'].'</p>
 </div>';
 }
 

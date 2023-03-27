@@ -9,10 +9,6 @@ $utilisateur=mysqli_fetch_assoc($resultat);
 
 include("menu_gauche.php");
 
-if( !empty($_FILES['publication'])){
-    echo 'file';
-}
-
 if(!empty($_POST)){
   if( !empty($_FILES['publication']['name']) ){
             $nomImage = 'image'.$_SESSION['utilisateur'].'-'.$utilisateur['nbpubli'].'.png';
