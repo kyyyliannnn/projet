@@ -119,25 +119,15 @@ label {
 #gens {
     width: 40vw;
     position: relative;
-    bottom:15vh;
+    top:10vh;
     left:10vw
 }
 
 #bulle {
     width: 25vw;
     position: relative;
-    top:10vh;
+    top:15vh;
     left:10vw;
-}
-
-#bulle_texte {
-    color:#A14A3E;
-    width: 20vw;
-    font-size: 1.7em;
-    text-align: center;
-    position: relative;
-    left: 12.5vw;
-    bottom:18vh;
 }
 
 #logo {
@@ -475,3 +465,32 @@ form p {
 #resultat {
     margin-top: 2vh;
 }
+
+#propos {
+    padding: 5vh 5vw;
+    font-size: 1.2em;
+}
+
+.admin {
+    display: none;
+    position: absolute;
+    top:8vh;
+    width: 100%;
+    height: 100%;
+}
+
+.admin input {
+    position: relative;
+    left: 79%;
+    background-color: #221F30;
+    color: white;
+    border:none;
+    text-decoration: none;
+    width: 20%;
+    height: 3vw;
+    font-size: 1.3em;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.5;
+}
+

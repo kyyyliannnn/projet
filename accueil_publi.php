@@ -29,9 +29,15 @@
             }
 
 
-            function afficheMenu(publi){
-                var c = document.getElementById("option");
-                c.style.display = "inline";
+            function afficheMenuadmin(publi){
+                var c = document.getElementById('admin'+publi);
+                if(c.style.display=="none"){
+                    c.style.display = "inline";
+                }
+                else{
+                    c.style.display = "none";
+                }
+                
             }
 
         </script>

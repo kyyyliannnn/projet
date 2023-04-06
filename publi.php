@@ -28,6 +28,21 @@ function like($publi){
         }   
 }
 
+function supprimer($publi){
+    if (isset($_POST['admin'.$publi])){
+        $connexion = data();
+            $publication = coPubli($publi);
+
+            $req1= 'DELETE FROM `Publication` WHERE id="'.$publication['id'].'" ';
+            mysqli_query($connexion, $req1);
+
+            mysqli_close($connexion);
+            header('location:accueil_publi.php');
+
+
+        }   
+}
+
 function coeur($publi){
     $connexion=data();
 
@@ -114,6 +129,19 @@ function publication($publi){
 </div>';
 }
 
+function reglage($publi){
+    $connexion=data();
+    $req= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION['utilisateur'].'"';
+    $resultat1 = mysqli_query($connexion, $req);
+    $utilisateur=mysqli_fetch_assoc($resultat1);
+    if($utilisateur['administrateur'] != 0){
+        return 'admin';
+    }
+    else{
+        return 'nonadmin';
+    }
+}
+
 
 function ecrire($publi){
     $connexion=data();
@@ -132,6 +160,7 @@ function ecrire($publi){
 
 function publi($publi){
     echo like($publi);
+    echo supprimer($publi);
     echo message($publi);
     $like = coeur($publi);
 
@@ -143,10 +172,14 @@ function publi($publi){
      <img src="image/coeur_'.$like.'.png">
      <input  class="bouton_icone" type="submit" name="like'.$publi.'" value="" id="like"></form>
      <button class="bouton_icone" onclick="affiche('.$publi.')"><img src="image/com.png"></button>
-     <button class="bouton_icone" onclick="afficheMenu()"><img src="image/option.png"></button>
+     <button class="bouton_icone" onclick="afficheMenu'.reglage($publi).'('.$publi.')"><img src="image/option.png"></button>
      </div>
+     <form action="accueil_publi.php" class="admin" id="admin'.$publi.'" method="post">
 
- </div>';
+     <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer"></form>
+    </form>
+ </div>'
+;
 
  echo publication($publi);
  
