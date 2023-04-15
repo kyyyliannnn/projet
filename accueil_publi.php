@@ -1,6 +1,7 @@
 <?php
     include("menu_gauche.php");
     include("publi.php");
+    include("story.php");
 
    ?>
 
@@ -37,12 +38,24 @@
                 else{
                     c.style.display = "none";
                 }
-                
             }
+
+            function affiche_story(id){
+                var c = document.getElementById('sto' + id);
+                c.style.display = "inline";
+            }
+
+            function cache_story(id){
+                var c = document.getElementById('sto' + id);
+                c.style.display = "none";
+                var d = document.getElementById('rond' + id);
+                d.style.borderColor = "#EED8C2";
+            }
+
 
         </script>
     </head>
-    <body class="display">
+<body class="display">
         <?php menu_gauche(0);?>
 <div class="publi_box">
 <?php 
@@ -55,10 +68,21 @@
         $ligne=mysqli_fetch_assoc($resultat);
     }
 
-    mysqli_close($connexion);
+
         ?>
 </div>
-
-        
+<div id="story_box">
+    <?php    
+    $req2= 'SELECT * FROM utilisateur WHERE story!=0 ';
+    $resultat = mysqli_query($connexion, $req2);
+    $ligne=mysqli_fetch_assoc($resultat);
+    while($ligne!=null){
+        story($ligne['id']);
+        image_story($ligne['id']);
+        $ligne=mysqli_fetch_assoc($resultat);
+    }
+    
+    mysqli_close($connexion);?>
+</div> 
     </body>
 </html>

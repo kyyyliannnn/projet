@@ -2,23 +2,18 @@
 session_start();
 
 include("publi.php");
+
 $connexion = data();
-$req1= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION['utilisateur'].'"';
-$resultat = mysqli_query($connexion, $req1);
-$utilisateur=mysqli_fetch_assoc($resultat);
 
 include("menu_gauche.php");
 
 if(!empty($_POST['submit'])){
   if( !empty($_FILES['publication']['name']) ){
-            $nomImage = 'image'.$_SESSION['utilisateur'].'-'.$utilisateur['nbpubli'].'.png';
-            if(move_uploaded_file($_FILES['publication']['tmp_name'], 'publication/'.$nomImage))
+            $nomImage = 'image'.$_SESSION['utilisateur'].'.png';
+            if(move_uploaded_file($_FILES['publication']['tmp_name'], 'story/'.$nomImage))
             {
-            $new_nbpubli = $utilisateur['nbpubli'] +1;
-            $req2= 'UPDATE utilisateur SET nbpubli="'.$new_nbpubli.'" WHERE id="'.$_SESSION['utilisateur'].'"';
+            $req2= 'UPDATE utilisateur SET story=1 WHERE id="'.$_SESSION['utilisateur'].'"';
             mysqli_query($connexion, $req2);
-            $req3= 'INSERT INTO publication (texte,utilisateur,numero) VALUES ("'.$_POST['texte'].'","'.$_SESSION['utilisateur'].'","'.$utilisateur['nbpubli'].'")';
-            mysqli_query($connexion, $req3);
             header('location:accueil_publi.php');
             }
           else
@@ -50,16 +45,17 @@ if(!empty($_POST['submit'])){
 <div class="publier_box">
 <img src="image/image.png">
 <p>Importer une photo</p>
-<form enctype="multipart/form-data" action="publier.php" method="post">
+<form enctype="multipart/form-data" action="publier_sto.php" method="post">
     <?php echo $message;?>
     <div class="importer">   
     <label id="importer" for="file">IMPORTER</label>
     <input type="file" name="publication" id="file"></div>
-    <input type="text" name="texte" placeholder="Legende">
-    <input type="submit" name="submit" value="PUBLIER">
+    <input type="submit" name="submit" value="POSTER">
 </form>
-<a href="publier_sto.php">Publier une story </a>
+<a href="publier.php">Poster une publication</a>
 </div>
+
+
 
         
     </body>

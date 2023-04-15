@@ -209,11 +209,10 @@ form p {
 
 .pdp {
     position: relative;
-    display: flex;
     width: 3vw;
     height: 3vw;
     background-color: #221F30;
-    border-radius: 20px;
+    border-radius: 50%;
     overflow: hidden;
 }
 
@@ -494,3 +493,60 @@ form p {
     opacity: 0.5;
 }
 
+#story_box {
+    position: fixed;
+    right: 0;
+    width: 30vw;
+    height: 100%;
+    border-left: solid 1px #DA7760;
+    display: flex;
+}
+
+#story_box .pdp {
+    position: relative;
+    margin-left: 2vw;
+    margin-top: 2vh;
+    width: 7vw;
+    height: 7vw;
+    border: solid 3px #DA7760;
+    cursor: pointer;
+}
+
+.story_contour{
+    position: absolute;
+    border: solid 3px #FFF6F6;
+    width: 6.2vw;
+    height: 6.2vw;
+    left: 0;
+    top : 0;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.image_story{
+    z-index: 3;
+    position: absolute;
+    width: 40vw;
+    background-color: #221F30;
+    right: 35vw;
+    top: 10vh;
+}
+
+.image_story img{
+    width: 100%;
+}
+
+.sto{
+    display: none;
+}
+
+.flou {
+    position: absolute;
+    right: 0;
+    top:-1vh;
+    z-index: 2;
+    width: 100vw;
+    height: 100vh;
+    background-color: #221F30;
+    opacity: 0.8;
+}
