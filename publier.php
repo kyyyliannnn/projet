@@ -58,7 +58,7 @@ if(!empty($_POST['submit'])){
     <input type="text" name="texte" placeholder="Legende">
     <input type="submit" name="submit" value="PUBLIER">
 </form>
-<a href="publier_sto.php">Publier une story </a>
+<a id="changer_publi" href="publier_sto.php">Publier une story </a>
 </div>
 
         

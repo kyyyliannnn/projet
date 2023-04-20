@@ -550,3 +550,9 @@ form p {
     background-color: #221F30;
     opacity: 0.8;
 }
+
+#changer_publi {
+    position: relative;
+    top:6vh;
+    color: #DA7760;
+}

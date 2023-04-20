@@ -1,4 +1,5 @@
 <?php
+session_start();
     include("menu_gauche.php");
     include("publi.php");
     include("story.php");
@@ -60,27 +61,44 @@
 <div class="publi_box">
 <?php 
     $connexion = data();
-    $req1= 'SELECT * FROM publication ORDER BY id DESC ';
-    $resultat = mysqli_query($connexion, $req1);
-    $ligne=mysqli_fetch_assoc($resultat);
-    while($ligne!=null){
-        publi($ligne['id']);
+    $req = 'SELECT * FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
+    $resultat1 = mysqli_query($connexion, $req);
+    $suivi=mysqli_fetch_assoc($resultat1);
+    while($suivi!=null){
+        $req1= 'SELECT * FROM publication ORDER BY id DESC WHERE utilisateur="'.$suivi['suivi'].'"';
+        $resultat = mysqli_query($connexion, $req1);
         $ligne=mysqli_fetch_assoc($resultat);
+        while($ligne!=null){
+            publi($ligne['id']);
+            $ligne=mysqli_fetch_assoc($resultat);
+        }
     }
+    
 
 
         ?>
 </div>
 <div id="story_box">
     <?php    
-    $req2= 'SELECT * FROM utilisateur WHERE story!=0 ';
-    $resultat = mysqli_query($connexion, $req2);
-    $ligne=mysqli_fetch_assoc($resultat);
-    while($ligne!=null){
-        story($ligne['id']);
-        image_story($ligne['id']);
+    $req = 'SELECT * FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
+    $resultat1 = mysqli_query($connexion, $req);
+    $suivi=mysqli_fetch_assoc($resultat1);
+    while($suivi!=null){
+        $req2= 'SELECT * FROM utilisateur WHERE story!=0 ';
+        $resultat = mysqli_query($connexion, $req2);
         $ligne=mysqli_fetch_assoc($resultat);
+        while($ligne!=null){
+            if(time()-$ligne['story']>86400){
+                $req3= 'UPDATE utilisateur SET story=0 WHERE id="'.$ligne['id'].'"';
+            }
+            else{
+                story($ligne['id']);
+                image_story($ligne['id']);
+            }
+            $ligne=mysqli_fetch_assoc($resultat);
+        }
     }
+
     
     mysqli_close($connexion);?>
 </div> 

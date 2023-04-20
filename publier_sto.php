@@ -12,7 +12,7 @@ if(!empty($_POST['submit'])){
             $nomImage = 'image'.$_SESSION['utilisateur'].'.png';
             if(move_uploaded_file($_FILES['publication']['tmp_name'], 'story/'.$nomImage))
             {
-            $req2= 'UPDATE utilisateur SET story=1 WHERE id="'.$_SESSION['utilisateur'].'"';
+            $req2= 'UPDATE utilisateur SET story='.time().' WHERE id="'.$_SESSION['utilisateur'].'"';
             mysqli_query($connexion, $req2);
             header('location:accueil_publi.php');
             }
@@ -52,7 +52,7 @@ if(!empty($_POST['submit'])){
     <input type="file" name="publication" id="file"></div>
     <input type="submit" name="submit" value="POSTER">
 </form>
-<a href="publier.php">Poster une publication</a>
+<a id="changer_publi" href="publier.php">Poster une publication</a>
 </div>
 
 
