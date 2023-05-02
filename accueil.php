@@ -12,7 +12,7 @@ session_start();
         }
         else {
             $connexion = mysqli_connect ('localhost',
-            'root', 'root', 'projet' ) ; //chercher serveur 
+            'root', '', 'projet' ) ; //chercher serveur 
             if (!$connexion) { //condition
                 echo 'Pas de connexion au serveur '; exit;
             }
@@ -29,6 +29,7 @@ session_start();
                     $_SESSION['utilisateur']=$ligne['id'];
                     $_SESSION['pseudo']=$ligne['pseudo'];
                     $_SESSION['pdp']=$ligne['pdp'];
+                    //néscessaire ??
                     header('location:accueil_publi.php');
                }
                else {

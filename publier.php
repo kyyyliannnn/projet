@@ -6,6 +6,7 @@ $connexion = data();
 $req1= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION['utilisateur'].'"';
 $resultat = mysqli_query($connexion, $req1);
 $utilisateur=mysqli_fetch_assoc($resultat);
+$message = '';
 
 include("menu_gauche.php");
 

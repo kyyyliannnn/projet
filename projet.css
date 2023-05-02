@@ -116,6 +116,26 @@ label {
     margin-left: 5vw;
 }
 
+.element_flex1 select {
+    padding: 0.7rem;
+    border: 1px solid black;
+    border-radius: 0.60rem;
+    background-color: #FFF6F6;
+    font-size: 1.2rem;
+    font-weight: 500;
+    line-height: 2;
+    cursor: pointer;
+    width: 55%;
+}
+
+.element_flex2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10%;
+    height: 60vh;
+}
+
 #gens {
     width: 40vw;
     position: relative;

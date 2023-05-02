@@ -4,6 +4,7 @@ session_start();
 include("publi.php");
 
 $connexion = data();
+$message = '';
 
 include("menu_gauche.php");
 

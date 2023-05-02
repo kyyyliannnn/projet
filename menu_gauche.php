@@ -18,7 +18,7 @@ function menu_gauche($i){
         <img src="image/plus_'.$icone[2].'.png">
         <p class="'.$icone[2].'"> CREER </p>
         </a> 
-    <a href="" class="menu_gauche_bouton" >
+    <a href="mon_profil.php" class="menu_gauche_bouton" >
         <img src="image/perso_'.$icone[3].'.png">
         <p class="'.$icone[3].'"> PROFIL </p>
         </a> 

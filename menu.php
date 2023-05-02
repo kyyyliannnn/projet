@@ -17,7 +17,7 @@ function menu($texte,$link){
 }
 
 function image(){
-    echo '        <div class="element_flex2">
+    echo '        <div class="element_flex3">
     <img id="bulle" src="image/bulle.png" alt="">
     <img id="gens" src="image/gens.png" alt="">
 </div>';

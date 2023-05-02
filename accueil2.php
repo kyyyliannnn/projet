@@ -12,7 +12,7 @@ session_start();
         }
         else {
             $connexion = mysqli_connect ('localhost',
-            'root', 'root', 'projet' ) ;
+            'root', '', 'projet' ) ;
             if (!$connexion) {
                 echo 'Pas de connexion au serveur '; exit;
             }
@@ -32,11 +32,15 @@ session_start();
                else {
                 $req2 = 'INSERT INTO Utilisateur (mail, mdp) VALUES ("'.$mail.'","'.md5($mdp).'")';
                 $resultat = mysqli_query($connexion, $req2);
+                $temp = mysqli_insert_id($connexion);
+                $_SESSION['temp'] = $temp;
+                header('location:inscription.php');
                }
             }
             mysqli_close($connexion);
         }      
     }
+    
 ?>
 
 <!DOCTYPE html>

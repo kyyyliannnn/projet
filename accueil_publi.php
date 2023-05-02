@@ -3,7 +3,6 @@ session_start();
     include("menu_gauche.php");
     include("publi.php");
     include("story.php");
-
    ?>
 
 <!DOCTYPE html>
@@ -60,26 +59,40 @@ session_start();
         <?php menu_gauche(0);?>
 <div class="publi_box">
 <?php 
-    $connexion = data();
-    $req = 'SELECT * FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
-    $resultat1 = mysqli_query($connexion, $req);
-    $suivi=mysqli_fetch_assoc($resultat1);
-    while($suivi!=null){
-        $req1= 'SELECT * FROM publication ORDER BY id DESC WHERE utilisateur="'.$suivi['suivi'].'"';
-        $resultat = mysqli_query($connexion, $req1);
-        $ligne=mysqli_fetch_assoc($resultat);
-        while($ligne!=null){
-            publi($ligne['id']);
-            $ligne=mysqli_fetch_assoc($resultat);
+
+$connexion = data();
+
+$req = 'SELECT suivi FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
+$resultat1 = mysqli_query($connexion, $req);
+
+if ($resultat1) {
+    // Traitement des résultats
+    while ($suivi = mysqli_fetch_assoc($resultat1)) {
+        $utilisateur_suivi = $suivi['suivi'];
+        $req1 = "SELECT * FROM publication WHERE utilisateur='$utilisateur_suivi' ORDER BY id DESC";
+        $resultat2 = mysqli_query($connexion, $req1);
+
+        if ($resultat2) {
+            // Afficher les publications
+            while ($ligne = mysqli_fetch_assoc($resultat2)) {
+                publi($ligne['id']);
+            }
+        } else {
+            // Gérer l'erreur
+            echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
         }
     }
-    
+} else {
+    // Gérer l'erreur
+    echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
+}
 
+mysqli_close($connexion);
 
-        ?>
-</div>
-<div id="story_box">
-    <?php    
+?>
+    </div>
+ <!-- <div id="story_box">
+ <?php
     $req = 'SELECT * FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
     $resultat1 = mysqli_query($connexion, $req);
     $suivi=mysqli_fetch_assoc($resultat1);
@@ -101,6 +114,8 @@ session_start();
 
     
     mysqli_close($connexion);?>
-</div> 
+    </div> -->
     </body>
 </html>
+
+
