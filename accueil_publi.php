@@ -62,27 +62,51 @@ session_start();
 
 $connexion = data();
 
-$req = 'SELECT suivi FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
-$resultat1 = mysqli_query($connexion, $req);
-
-if ($resultat1) {
-    // Traitement des résultats
-    while ($suivi = mysqli_fetch_assoc($resultat1)) {
-        $utilisateur_suivi = $suivi['suivi'];
-        $req1 = "SELECT * FROM publication WHERE utilisateur='$utilisateur_suivi' ORDER BY id DESC";
-        $resultat2 = mysqli_query($connexion, $req1);
-
-        if ($resultat2) {
-            // Afficher les publications
-            while ($ligne = mysqli_fetch_assoc($resultat2)) {
+$requete = 'SELECT administrateur FROM utilisateur WHERE id = "'.$_SESSION['utilisateur'].'"';
+$resultat = mysqli_query($connexion, $requete);
+if($resultat){
+    $admin = mysqli_fetch_assoc($resultat);
+    if($admin['administrateur'] == 1){
+        $requete1 = 'SELECT id FROM publication';
+        $resultat10 = mysqli_query($connexion, $requete1);
+        if($resultat10){
+            while($ligne = mysqli_fetch_assoc($resultat10)){
                 publi($ligne['id']);
+            }
+        }
+        else {
+            // Gérer l'erreur
+            echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
+        }
+    } 
+    else{
+        $req = 'SELECT suivi FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
+        $resultat1 = mysqli_query($connexion, $req);
+
+        if ($resultat1) {
+            // Traitement des résultats
+            while ($suivi = mysqli_fetch_assoc($resultat1)) {
+                $utilisateur_suivi = $suivi['suivi'];
+                $req1 = "SELECT * FROM publication WHERE utilisateur='$utilisateur_suivi' ORDER BY id DESC";
+                $resultat2 = mysqli_query($connexion, $req1);
+
+                if ($resultat2) {
+                    // Afficher les publications
+                    while ($ligne = mysqli_fetch_assoc($resultat2)) {
+                        publi($ligne['id']);
+                    }
+                } else {
+                    // Gérer l'erreur
+                    echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
+                }
             }
         } else {
             // Gérer l'erreur
             echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
         }
     }
-} else {
+}
+else {
     // Gérer l'erreur
     echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
 }
