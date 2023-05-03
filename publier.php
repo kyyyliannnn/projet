@@ -20,7 +20,7 @@ if(!empty($_POST['submit'])){
             mysqli_query($connexion, $req2);
             $req3= 'INSERT INTO publication (texte,utilisateur,numero) VALUES ("'.$_POST['texte'].'","'.$_SESSION['utilisateur'].'","'.$utilisateur['nbpubli'].'")';
             mysqli_query($connexion, $req3);
-            header('location:accueil_publi.php');
+            header('location:mon_profil.php');
             }
           else
           {

@@ -33,7 +33,7 @@ session_start();
                 $resultat = mysqli_query($connexion, $req2);
                 $temp = mysqli_insert_id($connexion);
                 $_SESSION['temp'] = $temp;
-                header('location:inscription.php');
+                header('Location:inscription.php');
                }
             }
             mysqli_close($connexion);

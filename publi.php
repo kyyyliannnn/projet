@@ -2,7 +2,8 @@
 session_start();
 
 include("base_donnee.php");
-$adresse = basename($_SERVER['PHP_SELF']);
+echo $_SERVER['REQUEST_URI'];
+
 
 //fonction pour gérer les likes
 function like($publi){
@@ -34,12 +35,11 @@ function supprimer($publi){
     if (isset($_POST['admin'.$publi])){
         $connexion = data();
         $publication = coPubli($publi);
-
         $req1= 'DELETE FROM `publication` WHERE id="'.$publication['id'].'" ';
         mysqli_query($connexion, $req1);
 
         mysqli_close($connexion);
-        header('location:mon_profil.php');
+        header('location:'.$_SERVER['REQUEST_URI']);
     }   
 }
 
@@ -262,7 +262,7 @@ function publi2($publi){
           </div>';
     // Affiche le formulaire de suppression de la publication
     // echo '<form action="accueil_publi.php" class="admin" id="admin'.$publi.'" method="post">
-    echo '<form action="mon_profil.php" class="admin" id="admin'.$publi.'" method="post">
+    echo '<form action="" class="admin" id="admin'.$publi.'" method="post">
             <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer la publication">
           </form>
         </div>';
