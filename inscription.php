@@ -92,8 +92,8 @@ if (isset($_POST['submit'])){
     </head>
     <body>
     <?php menu("Se connecter","accueil");?> <!-- Import du menu avec 2 paramètres -->
-    <div class="element_flex2">
-        <div class="element_flex1">
+    <div class="element_flex2" id="inscription_box">
+        <div class="element_flex1" id="inscription_ombre">
             <h1>Finalise ton inscription</h1> <!-- Titre principal de la page -->
             <form action="inscription.php" method="post"> <!-- Formulaire de connexion avec la méthode POST et l'action "accueil.php" -->
                 <label for="pseudo">Pseudo</label> <!-- Label pour le champ mail -->

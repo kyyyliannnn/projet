@@ -67,12 +67,9 @@ header .button {
 .element_flex1 {
     display: inline;
     position: relative;
-    width: 25vw;
-    padding: 5vh 3vw;
-    height: 50vh;
-    margin-top: 7vh;
-    border-radius: 20px;
-    box-shadow: 0px 0px 20px #DA7760;;
+    width: 30vw;
+    margin-left: 5vw;
+    margin-top: 3vh;
 }
 
 .element_flex1 h1 {
@@ -135,7 +132,21 @@ label {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 10%;
     height: 60vh;
+}
+
+#inscription_box {
+    margin-left: none;
+}
+
+#inscription_ombre {
+    width: 25vw;
+    margin-left: -5vw;
+    padding: 5vh 3vw;
+    border-radius: 20px;
+    margin-top: 5vh;
+    box-shadow: 0px 0px 15px #DA7760;
 }
 
 #gens {
