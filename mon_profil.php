@@ -111,8 +111,14 @@ $req = "SELECT * FROM publication WHERE utilisateur = '$id'";
 $resultat = mysqli_query($connexion, $req);
 
 if ($resultat) {
-    while ($ligne = mysqli_fetch_assoc($resultat)) {
-        publi2($ligne['id']);
+    if(mysqli_num_rows($resultat) > 0) {
+        while ($ligne = mysqli_fetch_assoc($resultat)) {
+            publi2($ligne['id']);
+        }
+    }
+    else{
+        echo '<h2> Oups... Vous n\'avez encore rien posté</h2>
+        <a href=publier.php>Postez votre première publication !<a>';
     }
 } else {
     // Gérer l'erreur

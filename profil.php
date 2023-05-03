@@ -114,8 +114,13 @@ $req = "SELECT * FROM publication WHERE utilisateur = '$id_profil'";
 $resultat = mysqli_query($connexion, $req);
 
 if ($resultat) {
-    while ($ligne = mysqli_fetch_assoc($resultat)) {
-        publi($ligne['id']);
+    if(mysqli_num_rows($resultat) > 0) {
+        while ($ligne = mysqli_fetch_assoc($resultat)) {
+            publi($ligne['id']);
+        }
+    }
+    else{
+        echo '<h2> Oups... On dirait que cet utilisateur n\'a encore rien posté</h2>';
     }
 } else {
     // Gérer l'erreur

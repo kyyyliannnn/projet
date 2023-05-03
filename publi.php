@@ -2,6 +2,7 @@
 session_start();
 
 include("base_donnee.php");
+$adresse = basename($_SERVER['PHP_SELF']);
 
 //fonction pour gérer les likes
 function like($publi){
@@ -38,20 +39,7 @@ function supprimer($publi){
         mysqli_query($connexion, $req1);
 
         mysqli_close($connexion);
-        //header('location:accueil_publi.php');
-    }   
-}
-
-function supprimer_com($publi){
-    if (isset($_POST['com'.$publi])){
-        $connexion = data();
-        $publication = coPubli($publi);
-
-        $req1= 'DELETE FROM `commentaire` WHERE publication="'.$publication['id'].'" ';
-        mysqli_query($connexion, $req1);
-
-        mysqli_close($connexion);
-        //header('location:accueil_publi.php');
+        header('location:mon_profil.php');
     }   
 }
 
@@ -138,10 +126,10 @@ function coUtilisateur($publi){
     return $utilisateur;
 }
 
-if(isset($_POST['abonn'])){
+/*if(isset($_POST['abonn'])){
     $_SESSION['id_profil'] = $_POST['abonn'];
     header('location:profil.php');
-}
+}*/
 
 // Fonction pour afficher le profil de l'utilisateur qui a publié une publication
 function profil($utilisateur){
@@ -224,7 +212,6 @@ function publi($publi){
     // echo '<form action="accueil_publi.php" class="admin" id="admin'.$publi.'" method="post">
     echo '<form action="" class="admin" id="admin'.$publi.'" method="post">
             <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer la publication">
-            <input class="reglage" type="submit" name="com'.$publi.'" value="Supprimer les commentaires">
           </form>
         </div>';
 
@@ -263,7 +250,7 @@ function publi2($publi){
     echo '<div class="publication">
             <div class="entete">';
     // Appelle la fonction profil() pour afficher la photo de profil de l'auteur de la publication
-    echo profil($publi);
+    echo profil(coUtilisateur($publi));
     // Affiche les boutons pour liker la publication, commenter la publication et accéder aux options de la publication
     echo '<div class="bouton_icone_boite">
             <form action="" method="post">';//<form action="accueil_publi.php" method="post">
@@ -275,9 +262,8 @@ function publi2($publi){
           </div>';
     // Affiche le formulaire de suppression de la publication
     // echo '<form action="accueil_publi.php" class="admin" id="admin'.$publi.'" method="post">
-    echo '<form action="" class="admin" id="admin'.$publi.'" method="post">
+    echo '<form action="mon_profil.php" class="admin" id="admin'.$publi.'" method="post">
             <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer la publication">
-            <input class="reglage" type="submit" name="com'.$publi.'" value="Supprimer les commentaires">
           </form>
         </div>';
 
