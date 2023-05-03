@@ -87,7 +87,7 @@ if(isset($_POST['suivre'])) {
             echo '<div class="entete"><a class="pdp" id="profil_pdp"><img src="pdp/personne'.$pdp.'.png"></a>
              <div id="entete2"><a class="pseudo" id="profil_pseudo">'.$pseudo.'</a>';
              if($admin == 1){
-                echo '<img id="image_admin" src="image/bouclier.png" alt="est administrateur">';
+                echo '<img id="image_admin" src="image/bouclier.png" title="Utilisateur Administrateur" alt="est administrateur">';
             }
             echo ' <p>Je suis étudiant.e à '.$universite.'</p> </div></div>
             <div id="button_profil_box">

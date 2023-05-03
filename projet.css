@@ -605,9 +605,9 @@ form p {
 
 #image_admin{
     position: relative;
-    height: 5vh;
-    top:2vh;
-    left: 1vw;
+    height: 6vh;
+    top:3vh;
+    left: -0.5vw;
 }
 
 #entete2{
