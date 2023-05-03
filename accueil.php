@@ -60,7 +60,6 @@ session_start();
                 <label for="mdp">Mot de passe</label>
                 <input type="password" name="mdp">
                 <p><?php echo $msg; ?></p>
-                <a href="">Mot de passe oublié ?</a>
                 <input type="submit" class="button" name='submit' value="Envoyer">
             </form>
         </div>

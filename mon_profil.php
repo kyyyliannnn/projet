@@ -1,8 +1,8 @@
 <?php
-session_start();
 
 include("menu_gauche.php");
 include("publi.php");
+include("profil_function.php");
 
 $connexion = data();
 $req1= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION['utilisateur'].'"';
@@ -11,6 +11,9 @@ $utilisateur=mysqli_fetch_assoc($resultat);
 $msg = '';
 $pseudo = $utilisateur['pseudo'];
 $id = $utilisateur['id'];
+$pdp = $utilisateur['pdp'];
+$admin = $utilisateur['administrateur'];
+$universite = $utilisateur['universite'];
 
 if (isset($_POST['submit'])){
         $new_pseudo = $_POST['new_pseudo'];
@@ -72,15 +75,34 @@ mysqli_close($connexion);
         </script>
     </head>
     <body class="display">
-        <?php menu_gauche(3);?>
+        <?php 
+            echo menu_gauche(3);
+
+             echo '<div id="profil_publi">
+             <div id="profil_box">
+            <div class="entete">
+                <a class="pdp" id="profil_pdp"><img src="pdp/personne'.$pdp.'.png"></a>
+                <div id="entete2">
+                    <a class="pseudo" id="profil_pseudo">'.$pseudo.'</a>';
+             if($admin == 1){
+                echo '<img id="image_admin" src="image/bouclier.png" title="Utilisateur Administrateur" alt="est administrateur">';
+            }
+            echo ' <p>Je suis étudiant.e à '.$universite.'</p> </div></div>'; ?>
+            
+            <div id="button_profil_box">
+            <?php 
+            abonnes($id);
+            abonnement($id);
+            ?>
+            </div>
 
             <a id="changer_publi" href="new_pdp.php">Changer ma photo de profil</a>
-            <h3>Pseudo actuel : <?php echo $pseudo;?><h3>
-            <form action="mon_profil.php" method="post"> 
+            <form id="changer_pseudo" action="mon_profil.php" method="post"> 
                 <label for="new_pseudo">Changer mon pseudo :</label> 
                 <input type="text" name="new_pseudo">
                 <input type="submit" name='submit' class="button" value="Enregistrer">
             </form>
+        </div>
             <?php echo $msg;
 
 $connexion = data();
@@ -102,6 +124,6 @@ mysqli_close($connexion);
 ?>
 
 
-        
+    </div>
     </body>
 </html>

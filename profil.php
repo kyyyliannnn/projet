@@ -2,6 +2,7 @@
 session_start();
 include("menu_gauche.php");
 include("publi.php");
+include("profil_function.php");
 
 $id_profil = $_GET['id'];
 $connexion = data();
@@ -97,42 +98,10 @@ if(isset($_POST['suivre'])) {
                 echo '<form method="post" class="button_profil" action="profil.php?id='.$id_profil.'"><input class="button" type="submit" name="suivre" value="Suivre"></form>';
             }
             echo $msg;
-            ?> </div><div class="colonne"><form class="button_profil"  method="post" action=""><input class="button" type="submit" name="abonnes" value="Voir les abonnés"></form>
-            <?php
-            if(isset($_POST['abonnes'])){
-                $connexion = data();
-                $req1= "SELECT * FROM suivi WHERE suivi = '$id_profil'";
-                $resultat = mysqli_query($connexion, $req1);
-                while($res=mysqli_fetch_assoc($resultat)){
-                    $req2 = "SELECT * FROM utilisateur WHERE id = '".$res['suiveur']."'";
-                    $resultat2 = mysqli_query($connexion, $req2);
-                    $utilisateur = mysqli_fetch_assoc($resultat2);
-
-                    echo '<div class="entete">';
-                    echo profil($utilisateur);
-                    echo '</div>';
-                }
-            }
-            ?>
-            </div>
-            <div class="colonne">
-            <form class="button_profil" method="post" action=""><input class="button" type="submit" name="abonnements" value="Voir les abonnements"></form>
-    
-            <?php
-            if(isset($_POST['abonnements'])){
-                $connexion = data();
-                $req1= "SELECT * FROM suivi WHERE suiveur = '$id_profil'";
-                $resultat = mysqli_query($connexion, $req1);
-                while($res=mysqli_fetch_assoc($resultat)){
-                    $req2 = "SELECT * FROM utilisateur WHERE id = '".$res['suivi']."'";
-                    $resultat2 = mysqli_query($connexion, $req2);
-                    $utilisateur = mysqli_fetch_assoc($resultat2);
-                    echo '<div class="entete">';
-                    echo profil($utilisateur);
-                    echo '</div>'; }
-            }
+            echo '</div>';
+            abonnes($id_profil);
+            abonnement($id_profil);
         ?>
-    </div>
     </div>
     </div>
 

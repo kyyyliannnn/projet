@@ -15,6 +15,9 @@ header hr {
     background-color: #DA7760;
 }
 
+.orange {
+    color:#DA7760;
+}
 .icone_menu {
     margin-top: 2vh;
     display: inline;
