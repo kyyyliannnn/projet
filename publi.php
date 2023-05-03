@@ -2,7 +2,7 @@
 session_start();
 
 include("base_donnee.php");
-echo $_SERVER['REQUEST_URI'];
+//echo $_SERVER['REQUEST_URI'];
 
 
 //fonction pour gérer les likes
