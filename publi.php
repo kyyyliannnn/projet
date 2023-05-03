@@ -34,7 +34,20 @@ function supprimer($publi){
         $connexion = data();
         $publication = coPubli($publi);
 
-        $req1= 'DELETE FROM `Publication` WHERE id="'.$publication['id'].'" ';
+        $req1= 'DELETE FROM `publication` WHERE id="'.$publication['id'].'" ';
+        mysqli_query($connexion, $req1);
+
+        mysqli_close($connexion);
+        //header('location:accueil_publi.php');
+    }   
+}
+
+function supprimer_com($publi){
+    if (isset($_POST['com'.$publi])){
+        $connexion = data();
+        $publication = coPubli($publi);
+
+        $req1= 'DELETE FROM `commentaire` WHERE publication="'.$publication['id'].'" ';
         mysqli_query($connexion, $req1);
 
         mysqli_close($connexion);
@@ -79,12 +92,13 @@ function message($publi){
 }
 
 //fonction pour afficher un commentaire
-function commentaire($texte,$pdp){
+function commentaire($texte,$utilisateur){
     echo  '<div class="com">
-    <a href="" class="pdp"><img src="pdp/personne'.$pdp.'.png"></a>
+    <a href="profil.php?id='.$utilisateur['id'].'" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
     <p>'.$texte.'</p>
-        </div>';
+    </div>';
 }
+
 
 // Fonction pour afficher les commentaires d'une publication
 function affiche($publi){
@@ -98,7 +112,7 @@ function affiche($publi){
         $resultat1 = mysqli_query($connexion, $req);
         $utilisateur=mysqli_fetch_assoc($resultat1);
         // Afficher chaque commentaire avec son texte et la photo de profil de l'utilisateur
-        commentaire($ligne['texte'],$utilisateur['pdp']);
+        commentaire($ligne['texte'],$utilisateur);
         $ligne=mysqli_fetch_assoc($resultat);
     }
 }
@@ -175,7 +189,7 @@ function ecrire($publi){
     $utilisateur=mysqli_fetch_assoc($resultat1);
 
     echo '<div class="com">
-    <a href="" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
+    <a href="profil.php?id='.$utilisateur['id'].'" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
     <form action="" method="post" >';//<form action="accueil_publi.php" method="post" >
     echo '<input type="texte" name="message'.$publi.'" class="message" placeholder="Ecrire un commentaire...">
     </form>
@@ -209,7 +223,8 @@ function publi($publi){
     // Affiche le formulaire de suppression de la publication
     // echo '<form action="accueil_publi.php" class="admin" id="admin'.$publi.'" method="post">
     echo '<form action="" class="admin" id="admin'.$publi.'" method="post">
-            <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer">
+            <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer la publication">
+            <input class="reglage" type="submit" name="com'.$publi.'" value="Supprimer les commentaires">
           </form>
         </div>';
 
@@ -261,7 +276,8 @@ function publi2($publi){
     // Affiche le formulaire de suppression de la publication
     // echo '<form action="accueil_publi.php" class="admin" id="admin'.$publi.'" method="post">
     echo '<form action="" class="admin" id="admin'.$publi.'" method="post">
-            <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer">
+            <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer la publication">
+            <input class="reglage" type="submit" name="com'.$publi.'" value="Supprimer les commentaires">
           </form>
         </div>';
 
