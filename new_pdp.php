@@ -3,6 +3,7 @@ session_start();
 
 include("menu_gauche.php");
 include("publi.php");
+include("base_donnee");
 
 $connexion = data();
 $req1= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION['utilisateur'].'"';
@@ -27,13 +28,13 @@ if(!empty($_POST['submit'])){
                 }
               }
               else{
-                $messaeg = 'L\'image doit être au format PNG';
+                $message = 'L\'image doit être au format PNG';
               }
-        
+            }
             else{
               $message = ' L\'image n\'est pas assez carré';
             }
-        }
+          }
         else{
           $message = 'Erreur lors de l\'enregistrement de l\'image sur le serveur';
         }
@@ -42,7 +43,6 @@ if(!empty($_POST['submit'])){
         $message = 'Veuillez mettre une image';
       }
     }
-  }
 ?>
 
 <!DOCTYPE html>

@@ -1,15 +1,7 @@
 <?php
 session_start();
 
-//fonction pour se connecter à la base de données
-function data(){
-    $connexion = mysqli_connect ('localhost', 'root', '', 'projet' ) ;
-    if (!$connexion) {
-        echo 'Pas de connexion au serveur '; exit;
-    }
-    mysqli_set_charset($connexion, 'utf8');
-    return $connexion;
-}
+include("base_donnee.php");
 
 //fonction pour gérer les likes
 function like($publi){
@@ -138,15 +130,9 @@ if(isset($_POST['abonn'])){
 }
 
 // Fonction pour afficher le profil de l'utilisateur qui a publié une publication
-function profil($publi){
-    $utilisateur = coUtilisateur($publi);
-    
-    //Plus beau mais on peut pas aller sur le profil de la personne
-    // echo ' <a href="" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
-    //<a href="" class="pseudo">'.$utilisateur['pseudo'].'</a>';
-
-    echo '<form method="post" action="profil.php"><button type="image"  name="abonn" value="'.$utilisateur['id'].'" src="pdp/personne'.$utilisateur['pdp'].'.png" ></button></form>
-          <form method="post" action="profil.php"><button type="submit" name="abonn" value="'.$utilisateur['id'].'">'.$utilisateur['pseudo'].'                     </button></form>';
+function profil($utilisateur){
+    echo ' <a href="profil.php?id='.$utilisateur['id'].'" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
+    <a href="profil.php?id='.$utilisateur['id'].'" class="pseudo">'.$utilisateur['pseudo'].'</a>';
 }
 
 // Fonction pour afficher une publication
@@ -210,7 +196,7 @@ function publi($publi){
     echo '<div class="publication">
             <div class="entete">';
     // Appelle la fonction profil() pour afficher la photo de profil de l'auteur de la publication
-    echo profil($publi);
+    echo profil(coUtilisateur($publi));
     // Affiche les boutons pour liker la publication, commenter la publication et accéder aux options de la publication
     echo '<div class="bouton_icone_boite">
             <form action="" method="post">';//<form action="accueil_publi.php" method="post">

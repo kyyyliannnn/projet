@@ -433,7 +433,6 @@ form p {
 
 .publier_box form input[type="text"]::placeholder{
     font-style: italic;
-
 }
 
 .publier_box form input[type="submit"]{
@@ -575,4 +574,50 @@ form p {
     position: relative;
     top:6vh;
     color: #DA7760;
+}
+
+#profil_box {
+    position: relative;
+    left: 25vw;
+}
+
+#profil_pdp{
+    width: 8vw;
+    height: 8vw;
+}
+
+#profil_pseudo{
+    font-size: 2.5em;
+}
+
+#image_admin{
+    position: relative;
+    height: 5vh;
+    top:2vh;
+    left: 1vw;
+}
+
+#entete2{
+    display: inline;
+    position: relative;
+    top:3vh;
+    left: 4vw;
+}
+
+.button_profil {
+    position: relative;
+}
+
+.button_profil .button{
+    width: auto;
+    border: none;
+    font-size: 1.1em;
+    padding: 1vh 1vw;
+}
+
+#button_profil_box {
+    display: flex;
+    width: 100%;
+    position: relative;
+    
 }

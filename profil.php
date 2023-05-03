@@ -3,7 +3,7 @@ session_start();
 include("menu_gauche.php");
 include("publi.php");
 
-$id_profil = $_SESSION['id_profil'];
+$id_profil = $_GET['id'];
 $connexion = data();
 $id = $_SESSION['utilisateur'];
 $msg = '';
@@ -25,12 +25,11 @@ else {
 mysqli_close($connexion);
 
 if(isset($_POST['suivre'])) {
-    $suivi = $_POST['suivre'];
     $connexion = data();
-    $req = "SELECT * FROM suivi WHERE suiveur = '$id' AND suivi = '$suivi'";
+    $req = "SELECT * FROM suivi WHERE suiveur = '$id' AND suivi = '$id_profil'";
     $resultat = mysqli_query($connexion, $req);   
     if(mysqli_num_rows($resultat) == 0) {
-        $req1= "INSERT INTO suivi (suiveur, suivi) VALUES ('$id', '$suivi')";
+        $req1= "INSERT INTO suivi (suiveur, suivi) VALUES ('$id', '$id_profil')";
         mysqli_query($connexion, $req1);
     }
     else{
@@ -38,10 +37,7 @@ if(isset($_POST['suivre'])) {
     }
     mysqli_close($connexion);
 }
-if(isset($_POST['abonn'])){
-    $_SESSION['id_profil'] = $_POST['abonn'];
-    header('location:profil.php');
-}
+
 ?>
 
 <!DOCTYPE html>
@@ -82,7 +78,65 @@ if(isset($_POST['abonn'])){
     </head>
 <body class="display">
         <?php menu_gauche(1);?>
-<div class="publi_box">
+    <div id="profil_publi">
+    <div id="profil_box"> <!-- CSS A FAIRE AHHHHHH -->
+        <?php
+            if ($id == $id_profil) {
+                echo '<h2>Voici à quoi ressemble votre compte, modifiez le <a href="mon_profil.php">ici</a> !</h2>';
+            }
+            echo '<div class="entete"><a class="pdp" id="profil_pdp"><img src="pdp/personne'.$pdp.'.png"></a>
+             <div id="entete2"><a class="pseudo" id="profil_pseudo">'.$pseudo.'</a>';
+             if($admin == 1){
+                echo '<img id="image_admin" src="image/bouclier.png" alt="est administrateur">';
+            }
+            echo ' <p>Je suis étudiant.e à '.$universite.'</p> </div></div>
+            <div id="button_profil_box">
+            <div class="colonne">';
+
+            if ($id != $id_profil) {
+                echo '<form method="post" class="button_profil" action="profil.php?id='.$id_profil.'"><input class="button" type="submit" name="suivre" value="Suivre"></form>';
+            }
+            echo $msg;
+            ?> </div><div class="colonne"><form class="button_profil"  method="post" action=""><input class="button" type="submit" name="abonnes" value="Voir les abonnés"></form>
+            <?php
+            if(isset($_POST['abonnes'])){
+                $connexion = data();
+                $req1= "SELECT * FROM suivi WHERE suivi = '$id_profil'";
+                $resultat = mysqli_query($connexion, $req1);
+                while($res=mysqli_fetch_assoc($resultat)){
+                    $req2 = "SELECT * FROM utilisateur WHERE id = '".$res['suiveur']."'";
+                    $resultat2 = mysqli_query($connexion, $req2);
+                    $utilisateur = mysqli_fetch_assoc($resultat2);
+
+                    echo '<div class="entete">';
+                    echo profil($utilisateur);
+                    echo '</div>';
+                }
+            }
+            ?>
+            </div>
+            <div class="colonne">
+            <form class="button_profil" method="post" action=""><input class="button" type="submit" name="abonnements" value="Voir les abonnements"></form>
+    
+            <?php
+            if(isset($_POST['abonnements'])){
+                $connexion = data();
+                $req1= "SELECT * FROM suivi WHERE suiveur = '$id_profil'";
+                $resultat = mysqli_query($connexion, $req1);
+                while($res=mysqli_fetch_assoc($resultat)){
+                    $req2 = "SELECT * FROM utilisateur WHERE id = '".$res['suivi']."'";
+                    $resultat2 = mysqli_query($connexion, $req2);
+                    $utilisateur = mysqli_fetch_assoc($resultat2);
+                    echo '<div class="entete">';
+                    echo profil($utilisateur);
+                    echo '</div>'; }
+            }
+        ?>
+    </div>
+    </div>
+    </div>
+
+    <div class="publi_box">
 <?php
 
 $connexion = data();
@@ -103,60 +157,6 @@ mysqli_close($connexion);
 
 ?>
     </div>
-    <div> <!-- CSS A FAIRE AHHHHHH -->
-        <?php
-            if ($id == $id_profil) {
-                echo '<h2>Voici à quoi ressemble votre compte, modifiez le <a href="mon_profil.php">ici</a> !</h2>';
-            }
-            echo '<img src="pdp/personne'.$pdp.'.png">
-            <h1>'.$pseudo.'</h1>
-            <p>Je suis étudiant.e à '.$universite.'</p>';
-            if($admin == 1){
-                echo '<img src="image/bouclier.png" alt="est administrateur">';
-            }
-            if ($id != $id_profil) {
-                echo '<form method="post" action="profil.php"><button type="submit" name="suivre" value="'.$id_profil.'">Suivre</button></form>';
-            }
-            echo $msg;
-            echo '<form method="post" action=""><button type="submit" name="abonnes">Voir les abonnés</button></form>';
-            if(isset($_POST['abonnes'])){
-                $connexion = data();
-                $req1= "SELECT * FROM suivi WHERE suivi = '$id_profil'";
-                $resultat = mysqli_query($connexion, $req1);
-                while($res=mysqli_fetch_assoc($resultat)){
-                    $req2 = "SELECT * FROM utilisateur WHERE id = '".$res['suiveur']."'";
-                    $resultat2 = mysqli_query($connexion, $req2);
-                    $utilisateur = mysqli_fetch_assoc($resultat2);
-                    
-                    /*je les transforme en bouton
-                    echo '<div class="entete"><a href="profil.php" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
-                    <a href="profil.php" class="pseudo">'.$utilisateur['pseudo'].'</a></div>';*/
-
-                    //problème avec le button image mais je pense que ça vient du fait qu'il manque un css
-                    echo '<form method="post" action="profil.php"><button type="image"  name="abonn" value="'.$utilisateur['id'].'" src="pdp/personne'.$utilisateur['pdp'].'.png" ></button></form>
-                          <form method="post" action="profil.php"><button type="submit" name="abonn" value="'.$utilisateur['id'].'">'.$utilisateur['pseudo'].' </button>           </form>';
-                }
-            }
-            echo '<form method="post" action=""><button type="submit" name="abonnements">Voir les abonnements</button></form>';
-            if(isset($_POST['abonnements'])){
-                $connexion = data();
-                $req1= "SELECT * FROM suivi WHERE suiveur = '$id_profil'";
-                $resultat = mysqli_query($connexion, $req1);
-                while($res=mysqli_fetch_assoc($resultat)){
-                    $req2 = "SELECT * FROM utilisateur WHERE id = '".$res['suivi']."'";
-                    $resultat2 = mysqli_query($connexion, $req2);
-                    $utilisateur = mysqli_fetch_assoc($resultat2);
-                    
-                    /* je les transforme en bouton
-                    echo '<div class="entete"><a href="profil.php" class="pdp"><img src="pdp/personne'.$utilisateur['pdp'].'.png"></a>
-                    <a href="profil.php" class="pseudo">'.$utilisateur['pseudo'].'</a></div>'; */
-
-                    //problème avec le button image mais je pense que ça vient du fait qu'il manque un css
-                    echo '<form method="post" action="profil.php"><button type="image"  name="abonn" value="'.$utilisateur['id'].'" src="pdp/personne'.$utilisateur['pdp'].'.png" ></button></form>
-                          <form method="post" action="profil.php"><button type="submit" name="abonn" value="'.$utilisateur['id'].'">'.$utilisateur['pseudo'].'                     </button></form>';
-                }
-            }
-        ?>
     </div>
     </body>
 </html>

@@ -26,10 +26,10 @@ if(isset($_POST['suivre'])) {
     mysqli_close($connexion);
 }
 
-if(isset($_POST['profil'])){
+/*if(isset($_POST['profil'])){
     $_SESSION['id_profil'] = $_POST['profil'];
     header('location:profil.php');
-}
+}*/
 
 
    ?>
@@ -58,14 +58,13 @@ if(isset($_POST['profil'])){
     $req1= 'SELECT * FROM utilisateur WHERE pseudo LIKE "%'.$_POST['recherche'].'%"';
     $resultat = mysqli_query($connexion, $req1);
     while($res=mysqli_fetch_assoc($resultat)){
-        
-        /* désolé c'était tout beau maintenant c'est moche mais maintenant ça marche
-        echo '<div class="entete"><a href="profil.php" class="pdp"><img src="pdp/personne'.$res['pdp'].'.png"></a>
-        <a href="profil.php" class="pseudo">'.$res['pseudo'].'</a></div>';
-        $_SESSION['id_profil'] = $res['id'];*/
+        echo '<div class="entete">';
+        echo profil($res);
+        echo '</div>';
+        $_SESSION['id_profil'] = $res['id'];
 
-        echo '<form method="post" action=""><button type="image"  name="profil" value="'.$res['id'].'" src="pdp/personne'.$res['pdp'].'.png" ></button></form>
-              <form method="post" action=""><button type="submit" name="profil" value="'.$res['id'].'">'.$res['pseudo'].'                     </button></form>';
+        /*echo '<form method="post" action=""><button type="image"  name="profil" value="'.$res['id'].'" src="pdp/personne'.$res['pdp'].'.png" ></button></form>
+              <form method="post" action=""><button type="submit" name="profil" value="'.$res['id'].'">'.$res['pseudo'].'                     </button></form>';*/
     }
     } ?>
     <p> <?php echo $msg; ?> </p>

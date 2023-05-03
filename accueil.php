@@ -1,6 +1,7 @@
 <?php
 session_start();
     include("menu.php");
+    include("base_donnee.php");
 
     $pseudo = $_POST['pseudo'];
     $mdp = $_POST['mdp'];
@@ -11,13 +12,11 @@ session_start();
             $msg="Erreur dans le pseudo ou le mot de passe";
         }
         else {
-            $connexion = mysqli_connect ('localhost',
-            'root', '', 'projet' ) ; //chercher serveur 
+            $connexion = data();
             if (!$connexion) { //condition
                 echo 'Pas de connexion au serveur '; exit;
             }
-            mysqli_set_charset($connexion, 'utf8'); //voila
-        
+
             $req = 'SELECT * FROM `Utilisateur` WHERE pseudo="'.$pseudo.'"' ; //requete 
             $resultat = mysqli_query ($connexion, $req); //executer 
             if (!$resultat) {
@@ -27,9 +26,6 @@ session_start();
                $ligne=mysqli_fetch_assoc($resultat); //recuperer la premiere ligne de resultat 
                if (md5($mdp) === $ligne['mdp']){
                     $_SESSION['utilisateur']=$ligne['id'];
-                    $_SESSION['pseudo']=$ligne['pseudo'];
-                    $_SESSION['pdp']=$ligne['pdp'];
-                    //néscessaire ??
                     header('location:accueil_publi.php');
                }
                else {

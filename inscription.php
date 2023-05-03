@@ -5,6 +5,7 @@ session_start();
 
 // On inclut le menu
 include("menu.php");
+include("base_donnee.php");
 
 // On récupère les données du formulaire de connexion
 $pseudo = $_POST['pseudo']; 
@@ -28,16 +29,13 @@ if (isset($_POST['submit'])){
         }
         else {
             // On se connecte à la base de données
-            $connexion = mysqli_connect ('localhost', 'root', '', 'projet' ) ;
+            $connexion = data();
             
             // Si la connexion échoue
             if (!$connexion) {
                 echo 'Pas de connexion au serveur '; 
                 exit;
             }
-            
-            // On définit l'encodage des caractères
-            mysqli_set_charset($connexion, 'utf8'); 
             
             // On échappe les caractères spéciaux pour éviter les injections SQL
             $pseudo = mysqli_real_escape_string($connexion,$pseudo);
@@ -103,7 +101,7 @@ if (isset($_POST['submit'])){
                 <label for="universite">Université</label> <!-- Label pour le champ mot de passe -->
                 <select name="universite" id="universite">
                     <?php
-                    $connexion = mysqli_connect ('localhost','root', '', 'projet' ) ;
+                    $connexion = data();
                     if (!$connexion) {
                         die('Connexion à la base de données impossible : ' . mysqli_connect_error());
                     }

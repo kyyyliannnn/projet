@@ -1,6 +1,7 @@
 <?php
 session_start(); 
     include("menu.php");
+    include("base_donnee.php");
 
     $mail = $_POST['mail']; 
     $mdp = $_POST['mdp'];
@@ -11,12 +12,10 @@ session_start();
             $msg="Veuillez remplir tous les champs";
         }
         else {
-            $connexion = mysqli_connect ('localhost',
-            'root', '', 'projet' ) ;
+            $connexion = data();
             if (!$connexion) {
                 echo 'Pas de connexion au serveur '; exit;
             }
-            mysqli_set_charset($connexion, 'utf8'); 
             $mail = mysqli_real_escape_string($connexion,$mail);
             $mdp = mysqli_real_escape_string($connexion,$mdp);
             $req = 'SELECT * FROM `Utilisateur` WHERE mail="'.$mail.'"' ; 
