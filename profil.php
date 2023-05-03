@@ -110,7 +110,7 @@ if(isset($_POST['suivre'])) {
 
 $connexion = data();
 
-$req = "SELECT * FROM publication WHERE utilisateur = '$id_profil'";
+$req = "SELECT * FROM publication WHERE utilisateur = '$id_profil' ORDER BY id DESC";
 $resultat = mysqli_query($connexion, $req);
 
 if ($resultat) {

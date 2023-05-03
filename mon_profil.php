@@ -107,7 +107,7 @@ mysqli_close($connexion);
 
 $connexion = data();
 
-$req = "SELECT * FROM publication WHERE utilisateur = '$id'";
+$req = "SELECT * FROM publication WHERE utilisateur = '$id' ORDER BY id DESC";
 $resultat = mysqli_query($connexion, $req);
 
 if ($resultat) {

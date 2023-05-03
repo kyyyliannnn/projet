@@ -67,7 +67,7 @@ $resultat = mysqli_query($connexion, $requete);
 if($resultat){
     $admin = mysqli_fetch_assoc($resultat);
     if($admin['administrateur'] == 1){
-        $requete1 = 'SELECT id FROM publication';
+        $requete1 = 'SELECT id FROM publication ORDER BY id DESC';
         $resultat10 = mysqli_query($connexion, $requete1);
         if($resultat10){
             while($ligne = mysqli_fetch_assoc($resultat10)){
@@ -87,7 +87,7 @@ if($resultat){
             // Traitement des résultats
             while ($suivi = mysqli_fetch_assoc($resultat1)) {
                 $utilisateur_suivi = $suivi['suivi'];
-                $req1 = "SELECT * FROM publication WHERE utilisateur='$utilisateur_suivi' ORDER BY id DESC";
+                $req1 = "SELECT * FROM publication WHERE utilisateur='$utilisateur_suivi' ORDER BY id ASC";
                 $resultat2 = mysqli_query($connexion, $req1);
 
                 if ($resultat2) {
