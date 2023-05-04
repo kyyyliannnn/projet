@@ -1,4 +1,15 @@
 <?php 
+
+function nbfollower($id_profil){
+    $i = 0;
+    $connexion = data();
+    $req1= "SELECT * FROM suivi WHERE suivi ='$id_profil'";
+    $resultat = mysqli_query($connexion, $req1);
+    while(mysqli_fetch_assoc($resultat)){
+        $i++;
+    }
+    return $i;
+}
 function abonnement($id_profil){
     echo '<div class="colonne">
     <form class="button_profil" method="post" action="">

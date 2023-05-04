@@ -164,6 +164,11 @@ function reglage($publi){
     }
 }
 
+function comptelike($publi){
+    $publi = coPubli($publi); 
+    return $publi['nblike'];
+}
+
 function reglage2($publi){
     return 'admin';
 }
@@ -191,7 +196,7 @@ function publi($publi){
     echo supprimer($publi);
     // Appelle la fonction message() pour afficher la section des commentaires
     echo message($publi);
-    // Récupère le nombre de likes de la publication
+    // Récupère la couleur du like de la publication
     $like = coeur($publi);
 
     // Affiche le bloc HTML de la publication
@@ -201,6 +206,7 @@ function publi($publi){
     echo profil(coUtilisateur($publi));
     // Affiche les boutons pour liker la publication, commenter la publication et accéder aux options de la publication
     echo '<div class="bouton_icone_boite">
+            <p class="nblike">'.comptelike($publi).'</p>
             <form action="" method="post">';//<form action="accueil_publi.php" method="post">
                 echo '<img src="image/coeur_'.$like.'.png">
                 <input  class="bouton_icone" type="submit" name="like'.$publi.'" value="" id="like">
@@ -243,7 +249,7 @@ function publi2($publi){
     echo supprimer($publi);
     // Appelle la fonction message() pour afficher la section des commentaires
     echo message($publi);
-    // Récupère le nombre de likes de la publication
+    // Récupère la couleur du like de la publication
     $like = coeur($publi);
 
     // Affiche le bloc HTML de la publication
@@ -253,6 +259,7 @@ function publi2($publi){
     echo profil(coUtilisateur($publi));
     // Affiche les boutons pour liker la publication, commenter la publication et accéder aux options de la publication
     echo '<div class="bouton_icone_boite">
+        <p class="nblike">'.comptelike($publi).'</p>
             <form action="" method="post">';//<form action="accueil_publi.php" method="post">
                 echo '<img src="image/coeur_'.$like.'.png">
                 <input  class="bouton_icone" type="submit" name="like'.$publi.'" value="" id="like">

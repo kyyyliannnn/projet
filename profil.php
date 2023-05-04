@@ -83,14 +83,15 @@ if(isset($_POST['suivre'])) {
     <div id="profil_box"> <!-- CSS A FAIRE AHHHHHH -->
         <?php
             if ($id == $id_profil) {
-                echo '<h2>Voici à quoi ressemble votre compte, modifiez le <a href="mon_profil.php">ici</a> !</h2>';
+                echo '<h2 id="profil_perso">Voici à quoi ressemble votre compte, modifiez le <a class="orange" href="mon_profil.php">ici</a> !</h2>';
             }
             echo '<div class="entete"><a class="pdp" id="profil_pdp"><img src="pdp/personne'.$pdp.'.png"></a>
              <div id="entete2"><a class="pseudo" id="profil_pseudo">'.$pseudo.'</a>';
              if($admin == 1){
                 echo '<img id="image_admin" src="image/bouclier.png" title="Utilisateur Administrateur" alt="est administrateur">';
             }
-            echo ' <p>Je suis étudiant.e à '.$universite.'</p> </div></div>
+            echo '<p id="nbfollower">'.nbfollower($id_profil).' abonnés </p> </div></div>
+            <p id="etudiant">Je suis étudiant.e à '.$universite.'</p>
             <div id="button_profil_box">
             <div class="colonne">';
 

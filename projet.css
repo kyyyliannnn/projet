@@ -233,7 +233,6 @@ form p {
 .publication {
     margin-top: 5vh;
     position: relative;
-    left: 25vw;
 }
 
 .entete {
@@ -368,6 +367,7 @@ form p {
 }
 
 .publi_box {
+    position: relative;
     display: inline;
 }
 
@@ -588,13 +588,13 @@ form p {
 
 #changer_publi {
     position: relative;
-    top:6vh;
+    top:4vh;
     color: #DA7760;
 }
 
 #profil_box {
     position: relative;
-    left: 25vw;
+    
 }
 
 #profil_pdp{
@@ -614,7 +614,7 @@ form p {
 }
 
 #entete2{
-    display: inline;
+    display: flex;
     position: relative;
     top:3vh;
     left: 4vw;
@@ -634,6 +634,55 @@ form p {
 #button_profil_box {
     display: flex;
     width: 100%;
+    position: relative;   
+    margin-top: -2vh;
+}
+
+#changer_pseudo {
+    color:#DA7760;
+    margin-top: 1vh;
+}
+
+#changer_pseudo .button {
+    border: none;
+    font-size: 1.1em;
+    width: 8vw;
+    height: 4vh;
+}
+
+#profil_publi {
     position: relative;
-    
+    left: 25vw;
+}
+
+#profil_publi h2 {
+    position: relative;
+    top: 5vh;
+    font-size: 1.3em;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.nblike{
+    position: relative;
+    bottom: 0.7vh;
+    left:2vw;
+}
+
+#nbfollower{
+    position: relative;
+    width: 10vw;
+    top:2vh;
+    left:2vw;
+}
+
+#etudiant {
+    position: relative;
+    left:15vw;
+    margin-top: -2vh;
+}
+
+#profil_perso {
+    position: relative;
+    margin-bottom: 5vw;
 }

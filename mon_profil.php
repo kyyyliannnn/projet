@@ -15,6 +15,8 @@ $pdp = $utilisateur['pdp'];
 $admin = $utilisateur['administrateur'];
 $universite = $utilisateur['universite'];
 
+
+
 if (isset($_POST['submit'])){
         $new_pseudo = $_POST['new_pseudo'];
         if (empty($new_pseudo)){
@@ -36,6 +38,10 @@ if (isset($_POST['submit'])){
                 }
             }
 mysqli_close($connexion);
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +93,9 @@ mysqli_close($connexion);
              if($admin == 1){
                 echo '<img id="image_admin" src="image/bouclier.png" title="Utilisateur Administrateur" alt="est administrateur">';
             }
-            echo ' <p>Je suis étudiant.e à '.$universite.'</p> </div></div>'; ?>
+            echo '<p id="nbfollower">'.nbfollower($id).' abonnés </p></div></div>
+
+             <p id="etudiant">Je suis étudiant.e à '.$universite.'</p> '; ?>
             
             <div id="button_profil_box">
             <?php 
@@ -118,7 +126,7 @@ if ($resultat) {
     }
     else{
         echo '<h2> Oups... Vous n\'avez encore rien posté</h2>
-        <a href=publier.php>Postez votre première publication !<a>';
+        <a id="changer_publi" href=publier.php>Postez votre première publication !<a>';
     }
 } else {
     // Gérer l'erreur

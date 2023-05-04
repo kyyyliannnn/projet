@@ -57,6 +57,7 @@ session_start();
     </head>
 <body class="display">
         <?php menu_gauche(0);?>
+<div id="profil_publi">
 <div class="publi_box">
 <?php 
 
@@ -114,7 +115,7 @@ else {
 mysqli_close($connexion);
 
 ?>
-    </div>
+    </div></div>
  <!-- <div id="story_box">
  <?php
     $req = 'SELECT * FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
