@@ -665,8 +665,14 @@ form p {
 
 .nblike{
     position: relative;
-    bottom: 0.7vh;
-    left:2vw;
+    left:2.5vw;
+    font-weight: bold;
+}
+
+.nbcom{
+    position: relative;
+    left: 13.5vh;
+    font-weight: bold;
 }
 
 #nbfollower{

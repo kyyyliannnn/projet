@@ -1,38 +1,12 @@
 <?php
-session_start();
+    session_start();
 
-include("publi.php");
-include("menu_gauche.php");
+    include("publi.php");
+    include("menu_gauche.php");
 
-$connexion = data();
-$req = 'SELECT * FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
-$resultat1 = mysqli_query($connexion, $req);
-$id = $_SESSION['utilisateur'];
-$msg = '';
-
-
-if(isset($_POST['suivre'])) {
-    $suivi = $_POST['suivre'];
     $connexion = data();
-    $req = "SELECT * FROM suivi WHERE suiveur = '$id' AND suivi = '$suivi'";
-    $resultat = mysqli_query($connexion, $req);   
-    if(mysqli_num_rows($resultat) == 0) {
-        $req1= "INSERT INTO suivi (suiveur, suivi) VALUES ('$id', '$suivi')";
-        mysqli_query($connexion, $req1);
-    }
-    else{
-        $msg = 'Vous suivez déjà cette personne';
-    }
-    mysqli_close($connexion);
-}
 
-/*if(isset($_POST['profil'])){
-    $_SESSION['id_profil'] = $_POST['profil'];
-    header('location:profil.php');
-}*/
-
-
-   ?>
+?>
 
 <!DOCTYPE html>
 <html>
@@ -43,34 +17,32 @@ if(isset($_POST['suivre'])) {
         <meta name="author" content="Kylian, Eva">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
-
     </head>
     <body class="display">
-        <?php menu_gauche(1);?>
+        <?php menu_gauche(1);?>  <!--Affiche le menu gauche -->
         <div id="rechercher">
-<form id="recherche_form" action="recherche.php" method="post">
-    <img src="image/recherche_o.png">
-    <input type="text" name="recherche" placeholder="rechercher un compte ou un groupe...">
-</form>
-<div id="resultat">
-<?php if(!empty($_POST['recherche'])){
-    $connexion = data();
-    $req1= 'SELECT * FROM utilisateur WHERE pseudo LIKE "%'.$_POST['recherche'].'%"';
-    $resultat = mysqli_query($connexion, $req1);
-    while($res=mysqli_fetch_assoc($resultat)){
-        echo '<div class="entete">';
-        echo profil($res);
-        echo '</div>';
-        $_SESSION['id_profil'] = $res['id'];
-
-        /*echo '<form method="post" action=""><button type="image"  name="profil" value="'.$res['id'].'" src="pdp/personne'.$res['pdp'].'.png" ></button></form>
-              <form method="post" action=""><button type="submit" name="profil" value="'.$res['id'].'">'.$res['pseudo'].'                     </button></form>';*/
-    }
-    } ?>
-    <p> <?php echo $msg; ?> </p>
-</div>
-</div>
-
-        
+            <form id="recherche_form" action="recherche.php" method="post">  <!--Formulaire pour la recherche utilisateur -->
+                <img src="image/recherche_o.png">
+                <input type="text" name="recherche" placeholder="rechercher un compte ou un groupe...">
+            </form>
+            <div id="resultat">
+                <?php 
+                
+                    if(!empty($_POST['recherche'])){
+                        $connexion = data();
+                        //Récupère les utilisateurs dont le pseudo correspond en partie avec ce qu'il y d'écrit dans le formulaire
+                        $req1= 'SELECT * FROM utilisateur WHERE pseudo LIKE "%'.$_POST['recherche'].'%"';
+                        $resultat = mysqli_query($connexion, $req1);
+                        //Affiche les profils
+                        while($res=mysqli_fetch_assoc($resultat)){
+                            echo '<div class="entete">';
+                            profil($res);
+                            echo '</div>';
+                        }
+                    } 
+                    
+                ?>
+            </div>
+        </div> 
     </body>
 </html>

@@ -1,5 +1,7 @@
 <?php
+
 session_start();
+
     include("menu.php");
     include("base_donnee.php");
 
@@ -7,31 +9,47 @@ session_start();
     $mdp = $_POST['mdp'];
     $msg="";
     
+    //Si l'utilisateur appuie sur envoyer
     if (isset($_POST['submit'])){
+
+        //Vérifie si il a marqué son pseudo et son mot de passe
         if (empty($pseudo) || empty($mdp)){
-            $msg="Erreur dans le pseudo ou le mot de passe";
+            $msg="Veuillez remplir tous les champs";
         }
+
         else {
             $connexion = data();
-            if (!$connexion) { //condition
+
+            //Vérification de la connexion au serveur
+            if (!$connexion) {
                 echo 'Pas de connexion au serveur '; exit;
             }
 
-            $req = 'SELECT * FROM `Utilisateur` WHERE pseudo="'.$pseudo.'"' ; //requete 
-            $resultat = mysqli_query ($connexion, $req); //executer 
+            //Récupère l'utilisateur qui a le pseudo marqué dans le formulaire
+            $req = 'SELECT * FROM `Utilisateur` WHERE pseudo="'.$pseudo.'"' ;
+            $resultat = mysqli_query ($connexion, $req);
+
+            //Vérification de la récupération de la ligne SQL
             if (!$resultat) {
-                $msg="Erreur dans le pseudo ou le mot de passe";
+                $msg="Erreur de connexion au serveur";
             }
+
             else {
-               $ligne=mysqli_fetch_assoc($resultat); //recuperer la premiere ligne de resultat 
+               $ligne=mysqli_fetch_assoc($resultat);
+
+               //Hache le mot de passe est vérifie que c'est le même que dans la base de données
                if (md5($mdp) === $ligne['mdp']){
+                    //Connecte l'utilisateur
                     $_SESSION['utilisateur']=$ligne['id'];
                     header('location:accueil_publi.php');
                }
+
+               //Ne correspond pas à la base de données
                else {
                 $msg="Erreur dans le pseudo ou le mot de passe";
                }
             }
+
             mysqli_close($connexion);
         }
         
@@ -50,20 +68,20 @@ session_start();
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
     </head>
     <body>
-    <?php menu("S'inscrire","accueil2");?>
-    <div class="element_flex">
-        <div class="element_flex1">
-            <h1>Rejoins de nombreuses communautés étudiantes</h1>
-            <form action="accueil.php" method="post">
-                <label for="pseudo">Pseudo</label>
-                <input type="text" name="pseudo">
-                <label for="mdp">Mot de passe</label>
-                <input type="password" name="mdp">
-                <p><?php echo $msg; ?></p>
-                <input type="submit" class="button" name='submit' value="Envoyer">
-            </form>
+        <?php menu("S'inscrire","accueil2");?>  <!-- entête du site -->
+        <div class="element_flex">
+            <div class="element_flex1">
+                <h1>Rejoins de nombreuses communautés étudiantes</h1>
+                <form action="accueil.php" method="post">   <!-- Formulaire de connexion -->
+                    <label for="pseudo">Pseudo</label>
+                    <input type="text" name="pseudo">       <!-- Champ pour écrire le pseudo -->
+                    <label for="mdp">Mot de passe</label>
+                    <input type="password" name="mdp">      <!-- Champ pour écrire le mot de passe -->
+                    <p><?php echo $msg; ?></p>
+                    <input type="submit" class="button" name='submit' value="Envoyer">  <!-- Bouton de connexion -->
+                </form>
+            </div>
+            <?php image(); ?>
         </div>
-        <?php image(); ?>
-    </div>
     </body>
 </html>
