@@ -5,50 +5,62 @@
     include("publi.php");
     include("profil_function.php");
 
-    $id_profil = $_GET['id'];
     $connexion = data();
+    $_GET['id'];
     $id = $_SESSION['utilisateur'];
+    $id_profil = $_GET['id'];
+    //On évite les injections SQL à travers l'URL et les cookies
+    $id_profil = mysqli_real_escape_string($connexion,$id_profil);
+    $id = mysqli_real_escape_string($connexion,$id);
     $msg = '';
-    //Récupère l'utilisateur correspondant à l'id dans l'url, càd celui sur lequel on a cliqué
-    $req = "SELECT * FROM utilisateur WHERE id = '$id_profil'";
-    $resultat = mysqli_query($connexion, $req);
 
-    //On vérifie qu'on a un résultat
-    if ($resultat) {
+    //Vérifie qu'on a évité l'injection
+    //if ($id_profil === false) {
+      //  $msg = 'L\'id a été modifié'
+    //}
 
-        //On récupère les infos de l'utilisateur dans l'url
-        while ($ligne = mysqli_fetch_assoc($resultat)) {
-            $pseudo = $ligne['pseudo'];
-            $universite = $ligne['universite'];
-            $pdp = $ligne['pdp'];
-            $admin = $ligne['administrateur'];
-        }
-    }
+    //else{
+        //Récupère l'utilisateur correspondant à l'id dans l'url, càd celui sur lequel on a cliqué
+        $req = "SELECT * FROM utilisateur WHERE id = '$id_profil'";
+        $resultat = mysqli_query($connexion, $req);
 
-    else {
-        echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
-    }
-    mysqli_close($connexion);
+        //On vérifie qu'on a un résultat
+        if ($resultat) {
 
-    //Si le bouton suivre est cliqué
-    if(isset($_POST['suivre'])) {
-        $connexion = data();
-        //On récupère la ligne nous indiquant si l'utilisateur suit celui de l'url
-        $req = "SELECT * FROM suivi WHERE suiveur = '$id' AND suivi = '$id_profil'";
-        $resultat = mysqli_query($connexion, $req);  
-        
-        //S'il ne le suit pas
-        if(mysqli_num_rows($resultat) == 0) {
-            //On ajoute le fait qu'il le suit
-            $req1= "INSERT INTO suivi (suiveur, suivi) VALUES ('$id', '$id_profil')";
-            $resultat1 = mysqli_query($connexion, $req1);
+            //On récupère les infos de l'utilisateur dans l'url
+            while ($ligne = mysqli_fetch_assoc($resultat)) {
+                $pseudo = $ligne['pseudo'];
+                $universite = $ligne['universite'];
+                $pdp = $ligne['pdp'];
+                $admin = $ligne['administrateur'];
+            }
         }
 
-        else{
-            $msg = 'Vous suivez déjà cette personne';
+        else {
+            echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
         }
         mysqli_close($connexion);
-    }
+
+        //Si le bouton suivre est cliqué
+        if(isset($_POST['suivre'])) {
+            $connexion = data();
+            //On récupère la ligne nous indiquant si l'utilisateur suit celui de l'url
+            $req = "SELECT * FROM suivi WHERE suiveur = '$id' AND suivi = '$id_profil'";
+            $resultat = mysqli_query($connexion, $req);  
+            
+            //S'il ne le suit pas
+            if(mysqli_num_rows($resultat) == 0) {
+                //On ajoute le fait qu'il le suit
+                $req1= "INSERT INTO suivi (suiveur, suivi) VALUES ('$id', '$id_profil')";
+                $resultat1 = mysqli_query($connexion, $req1);
+            }
+
+            else{
+                $msg = 'Vous suivez déjà cette personne';
+            }
+            mysqli_close($connexion);
+        }
+    //}
 
 ?>
 

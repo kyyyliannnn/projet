@@ -30,8 +30,10 @@
                 
                     if(!empty($_POST['recherche'])){
                         $connexion = data();
+                        //Evite les injections SQL
+                        $secu = mysqli_real_escape_string($connexion,$_POST['recherche']);
                         //Récupère les utilisateurs dont le pseudo correspond en partie avec ce qu'il y d'écrit dans le formulaire
-                        $req1= 'SELECT * FROM utilisateur WHERE pseudo LIKE "%'.$_POST['recherche'].'%"';
+                        $req1= 'SELECT * FROM utilisateur WHERE pseudo LIKE "%'.$secu.'%"';
                         $resultat = mysqli_query($connexion, $req1);
                         //Affiche les profils
                         while($res=mysqli_fetch_assoc($resultat)){

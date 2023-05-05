@@ -47,8 +47,10 @@
         //Si le bouton like a été cliqué
         if (isset($_POST['like'.$publi])){
             $connexion=data();
+            //On évite les injections SQL
+            $user = mysqli_real_escape_string($connexion,$_SESSION['utilisateur']);
             //Récupère l'id du j'aime de l'utilisateur sur la publication
-            $req1= 'SELECT * FROM aime WHERE utilisateur="'.$_SESSION['utilisateur'].'"'.' AND publication="'.$publi.'"';
+            $req1= 'SELECT * FROM aime WHERE utilisateur="'.$user.'"'.' AND publication="'.$publi.'"';
             $resultat1 = mysqli_query($connexion, $req1);
             $ligne1=mysqli_fetch_assoc($resultat1);
             //Récupère le nombre de like de la publication
@@ -60,14 +62,14 @@
             //si l'utilisateur a déjà liké la publication, on supprime le like
             if (!empty($ligne1)){ 
                 //On retire le like de l'utilisateur de la publication
-                $req = 'DELETE FROM aime WHERE utilisateur="'.$_SESSION['utilisateur'].'"'.' AND publication="'.$publi.'"' ;
+                $req = 'DELETE FROM aime WHERE utilisateur="'.$user.'"'.' AND publication="'.$publi.'"' ;
                 //Le nombre de like de la publication baisse de 1
                 $nblike--;
             }
 
             else {
                 //On ajoute un like de l'utilisateur à la publication
-                $req = 'INSERT INTO aime (utilisateur, publication) VALUES ("'.$_SESSION['utilisateur'].'","'.$publi.'")' ; 
+                $req = 'INSERT INTO aime (utilisateur, publication) VALUES ("'.$user.'","'.$publi.'")' ; 
                 //Le nombre de like de la publication augmente de 1
                 $nblike++;
             } 
@@ -99,8 +101,10 @@
     //fonction pour savoir si l'utilisateur a déjà liké une publication
     function coeur($publi){
         $connexion=data();
+        //On évite les injections SQL
+        $user = mysqli_real_escape_string($connexion,$_SESSION['utilisateur']);
         //On récupère le like de l'utilisateur sur la publication
-        $req1= 'SELECT * FROM aime WHERE utilisateur="'.$_SESSION['utilisateur'].'"'.' AND publication="'.$publi.'"';
+        $req1= 'SELECT * FROM aime WHERE utilisateur="'.$user.'"'.' AND publication="'.$publi.'"';
         $resultat1 = mysqli_query($connexion, $req1);
         $ligne=mysqli_fetch_assoc($resultat1);
 
@@ -122,8 +126,10 @@
         //Vérifie qu'il y a un contenu
         if (!empty($_POST['message'.$publi])){
             $connexion=data();
+            //On évite les injections SQL
+            $user = mysqli_real_escape_string($connexion,$_SESSION['utilisateur']);
             //Récupère le commentaire de l'utilisateur sur cette publication avec ce message
-            $req1= 'SELECT * FROM commentaire WHERE utilisateur="'.$_SESSION['utilisateur'].'"'.' AND publication="'.$publi.'"'.' AND texte="'.$_POST['message'.$publi].'"';
+            $req1= 'SELECT * FROM commentaire WHERE utilisateur="'.$user.'"'.' AND publication="'.$publi.'"'.' AND texte="'.$_POST['message'.$publi].'"';
             $resultat1 = mysqli_query($connexion, $req1);
             $ligne=mysqli_fetch_assoc($resultat1);
             //Récupère le nombre de commentaire de la publication
@@ -135,7 +141,7 @@
             //Verifie que l'utilisateur n'a pas déjà posté ce commentaire
             if (empty($ligne)){ 
                 //Ajoute le commentaire à la publication
-                $req3 = 'INSERT INTO commentaire (utilisateur, publication, texte) VALUES ("'.$_SESSION['utilisateur'].'","'.$publi.'","'.$_POST['message'.$publi].'")' ; 
+                $req3 = 'INSERT INTO commentaire (utilisateur, publication, texte) VALUES ("'.$user.'","'.$publi.'","'.$_POST['message'.$publi].'")' ; 
                 mysqli_query($connexion, $req3);
                 $nbcom++;
                 //Augmente de 1 le nombre de commentaire de la publication
@@ -227,8 +233,10 @@
     // Fonction pour vérifier si l'utilisateur est admin
     function reglage($publi){
         $connexion=data();
+        //On évite les injections SQL
+        $user = mysqli_real_escape_string($connexion,$_SESSION['utilisateur']);
         //Récupère les infos de l'tuilisateur connecté
-        $req1= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION['utilisateur'].'"';
+        $req1= 'SELECT * FROM utilisateur WHERE id="'.$user.'"';
         $resultat1 = mysqli_query($connexion, $req1);
         $utilisateur=mysqli_fetch_assoc($resultat1);
         //Vérifie si il est administrateur

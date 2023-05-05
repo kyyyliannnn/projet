@@ -6,6 +6,10 @@ session_start();
     include("publi.php");
     include("story.php");
 
+    $connexion = data();
+    //On évite les injections SQL
+    $user = mysqli_real_escape_string($connexion,$_SESSION['utilisateur']);
+
 ?>
 
 <!DOCTYPE html>
@@ -24,9 +28,8 @@ session_start();
         <div class="publi_box">
             <?php 
 
-            $connexion = data();
             //Récupère l'info de si l'utilisateur est admin ou non
-            $req = 'SELECT administrateur FROM utilisateur WHERE id = "'.$_SESSION['utilisateur'].'"';
+            $req = 'SELECT administrateur FROM utilisateur WHERE id = "'.$user.'"';
             $resultat = mysqli_query($connexion, $req);
 
             if($resultat){
@@ -54,7 +57,7 @@ session_start();
                 //S'il n'est pas admin, on affiche les publications des gens qu'il suit
                 else{ 
                     //Récupère tous les utilisateurs qu'il suit
-                    $req2 = 'SELECT suivi FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
+                    $req2 = 'SELECT suivi FROM suivi WHERE suiveur = "'.$user.'"';
                     $resultat2 = mysqli_query($connexion, $req2);
 
                     if ($resultat2) {
@@ -96,7 +99,7 @@ session_start();
         <div id="story_box">
             <?php
 
-                $req = 'SELECT * FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
+                $req = 'SELECT * FROM suivi WHERE suiveur = "'.$user.'"';
                 $resultat1 = mysqli_query($connexion, $req);
 
                 while($suivi = mysqli_fetch_assoc($resultat1)){

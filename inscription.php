@@ -36,7 +36,6 @@ session_start();
                 
                 // On évite les injections SQL
                 $pseudo = mysqli_real_escape_string($connexion,$pseudo);
-                $universite = mysqli_real_escape_string($connexion,$universite);
                 // On récupère l'utilisateur qui le pseudo rentré
                 $req = 'SELECT * FROM `Utilisateur` WHERE pseudo="'.$pseudo.'"' ; 
                 $resultat = mysqli_query($connexion, $req);

@@ -25,6 +25,8 @@ session_start();
                 echo 'Pas de connexion au serveur '; exit;
             }
 
+            //On évite les injections SQL
+            $pseudo = mysqli_real_escape_string($connexion,$pseudo);
             //Récupère l'utilisateur qui a le pseudo marqué dans le formulaire
             $req = 'SELECT * FROM `Utilisateur` WHERE pseudo="'.$pseudo.'"' ;
             $resultat = mysqli_query ($connexion, $req);
@@ -37,7 +39,7 @@ session_start();
             else {
                $ligne=mysqli_fetch_assoc($resultat);
 
-               //Hache le mot de passe est vérifie que c'est le même que dans la base de données
+               //Hache le mot de passe et vérifie que c'est le même que dans la base de données
                if (md5($mdp) === $ligne['mdp']){
                     //Connecte l'utilisateur
                     $_SESSION['utilisateur']=$ligne['id'];

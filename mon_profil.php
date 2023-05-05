@@ -5,7 +5,9 @@
     include("profil_function.php");
 
     $connexion = data();
-    $req= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION['utilisateur'].'"';
+    //On évite les injections SQL
+    $user = mysqli_real_escape_string($connexion,$_SESSION['utilisateur']);
+    $req= 'SELECT * FROM utilisateur WHERE id="'.$user.'"';
     $resultat = mysqli_query($connexion, $req);
     $utilisateur=mysqli_fetch_assoc($resultat);
     $msg = '';

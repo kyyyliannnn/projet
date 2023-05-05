@@ -6,7 +6,9 @@
   include("publi.php");
   
   $connexion = data();
-  $req= 'SELECT * FROM utilisateur WHERE id="'.$_SESSION['utilisateur'].'"';
+  //On évite les injections SQL
+  $user = mysqli_real_escape_string($connexion,$_SESSION['utilisateur']);
+  $req= 'SELECT * FROM utilisateur WHERE id="'.$user.'"';
   $resultat = mysqli_query($connexion, $req);
   $utilisateur=mysqli_fetch_assoc($resultat);
   $message = '';
@@ -17,7 +19,7 @@
     //Si on a récupérer un fichier
     if(!empty($_FILES['photo']['name'])){
       //Fixe le nom de l'image pour la base de données
-      $nomImage = 'personne'.$_SESSION['utilisateur'].'.png';
+      $nomImage = 'personne'.$user.'.png';
       $image_info = getimagesize($_FILES['photo']['tmp_name']);          
       
       //Si on a récupéré un image
@@ -32,7 +34,7 @@
             //Déplace l'image au bon endroit et vérifie que l'action s'effectue      
             if(move_uploaded_file($_FILES['photo']['tmp_name'], 'pdp/'.$nomImage)){   
               //Met à jour la photo de profil de l'utilisateur                 
-              $req1= 'UPDATE utilisateur SET pdp="'.$_SESSION['utilisateur'].'" WHERE id="'.$_SESSION['utilisateur'].'"';                   
+              $req1= 'UPDATE utilisateur SET pdp="'.$user.'" WHERE id="'.$user.'"';                   
               $resultat1 = mysqli_query($connexion, $req1);                    
               $message = 'Nouvelle photo de profil enregistrée !';                  
             }

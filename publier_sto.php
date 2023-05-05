@@ -4,16 +4,18 @@ session_start();
 include("publi.php");
 
 $connexion = data();
+//On évite les injections SQL
+$user = mysqli_real_escape_string($connexion,$_SESSION['utilisateur']);
 $message = '';
 
 include("menu_gauche.php");
 
 if(!empty($_POST['submit'])){
   if( !empty($_FILES['publication']['name']) ){
-            $nomImage = 'image'.$_SESSION['utilisateur'].'.png';
+            $nomImage = 'image'.$user.'.png';
             if(move_uploaded_file($_FILES['publication']['tmp_name'], 'story/'.$nomImage))
             {
-            $req2= 'UPDATE utilisateur SET story='.time().' WHERE id="'.$_SESSION['utilisateur'].'"';
+            $req2= 'UPDATE utilisateur SET story='.time().' WHERE id="'.$user.'"';
             mysqli_query($connexion, $req2);
             header('location:accueil_publi.php');
             }
