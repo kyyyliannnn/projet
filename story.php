@@ -1,5 +1,22 @@
-<?php 
+<!DOCTYPE html>
+<html>
+    <script>
+        function affiche_story(id){
+            var c = document.getElementById('sto' + id);
+            c.style.display = "inline";
+        }
 
+        function cache_story(id){
+            var c = document.getElementById('sto' + id);
+            c.style.display = "none";
+            var d = document.getElementById('rond' + id);
+            d.style.borderColor = "#EED8C2";
+        }
+        
+    </script>
+</html>
+
+<?php 
 
 
 function story($util){
@@ -12,6 +29,7 @@ function story($util){
     </button>
 </div>";
 }
+
 
 function image_story($util){
     echo "<div  id='sto".$util['id']."' class='sto'> 

@@ -61,35 +61,6 @@
         <meta name="author" content="Kylian, Eva">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
-        <script>
-
-            //Pour afficher les commentaires
-            function affiche(publi){
-                var c = document.getElementById('com_box' + publi);
-                c.style.display = "inline";
-                var d = document.getElementById('commentaire'+publi);
-                d.style.display = "none";
-            }
-
-            //Pour cacher les commentaires
-            function cache(publi){
-                var c = document.getElementById('com_box'+publi);
-                c.style.display = "none";
-                var d = document.getElementById('commentaire'+publi);
-                d.style.display = "inline";
-            }
-
-            //Pour afficher le bouton de suppression des publications
-            function afficheMenuadmin(publi){
-                var c = document.getElementById('admin'+publi);
-                if(c.style.display=="none"){
-                    c.style.display = "inline";
-                }
-                else{
-                    c.style.display = "none";
-                }
-            }
-        </script>
     </head>
     <body class="display">
         <?php menu_gauche(1);?>
@@ -161,7 +132,7 @@
 
                             //Affiche toutes les publications de l'utilisateur
                             while ($ligne = mysqli_fetch_assoc($resultat)) {
-                                publi($ligne['id']);
+                                publi($ligne['id'],0);
                             }
                         }
 
@@ -172,6 +143,7 @@
                     } else {
                         echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
                     }
+                    
                     mysqli_close($connexion);
 
                 ?>

@@ -2,7 +2,7 @@
 
 //fonction pour se connecter à la base de données
 function data(){
-    $connexion = mysqli_connect('localhost', 'root', 'root', 'projet') ; //à changer en fonction de ses paramètres d'utilisateur
+    $connexion = mysqli_connect('localhost', 'root', '', 'projet') ; //à changer en fonction de ses paramètres d'utilisateur
     if (!$connexion) {
         echo 'Pas de connexion au serveur '; exit;
     }

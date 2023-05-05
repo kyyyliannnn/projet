@@ -3,6 +3,43 @@
 
     include("base_donnee.php");
 
+?>
+
+<!DOCTYPE html>
+<html>
+    <script>
+
+        //Pour afficher les commentaires
+        function affiche(publi){ 
+            var c = document.getElementById('com_box' + publi);
+            c.style.display = "inline";
+            var d = document.getElementById('commentaire'+publi);
+            d.style.display = "none";
+        }
+
+        //Pour masquer les commentaires
+        function cache(publi){ 
+            var c = document.getElementById('com_box'+publi);
+            c.style.display = "none";
+            var d = document.getElementById('commentaire'+publi);
+            d.style.display = "inline";
+        }
+
+        //Pour afficher le bouton suppression de publication
+        function afficheMenuadmin(publi){ 
+            var c = document.getElementById('admin'+publi);
+            if(c.style.display=="none"){
+                c.style.display = "inline";
+            }
+            else{
+                c.style.display = "none";
+            }
+        }
+        
+    </script>
+</html>
+<?php
+
 
     //fonction pour gérer les likes
     function like($publi){
@@ -204,12 +241,6 @@
     }
 
 
-    //Fonction alternative à la précédente pour la fonction publi2()
-    function reglage2($publi){
-        return 'admin';
-    }
-
-
     //Renvoie le nombre de like d'une publication
     function comptelike($publi){
         $publi = coPubli($publi); 
@@ -242,12 +273,24 @@
     }
 
 
-    //Fonction pour afficher la publication
-    function publi($publi){
+    /*  Fonction pour afficher la publication
+        Mettre la variable alternative à 1 pour que l'utilisateur soit considéré comme admin
+        La version alternative est utilisée sur mon_profil.php pour pouvoir modifier ses publications   */
+    function publi($publi,$alternative){
         like($publi);
         supprimer($publi);
         message($publi);
         $like = coeur($publi);
+
+        //Vérifie qu'on a activé la version alternative de la fonction
+        if($alternative == 1){
+            $admin = 'admin';
+        }
+
+        else{
+            $admin = reglage($publi);
+        }
+
         echo 
             '<div class="publication">
                 <div class="entete">';
@@ -261,45 +304,7 @@
                             <input  class="bouton_icone" type="submit" name="like'.$publi.'" value="" id="like">
                         </form>
                         <button class="bouton_icone" onclick="affiche('.$publi.')"><img src="image/com.png"></button>
-                        <button class="bouton_icone" onclick="afficheMenu'.reglage($publi).'('.$publi.')"><img src="image/option.png"></button>
-                    </div>
-                    <form action="" class="admin" id="admin'.$publi.'" method="post">
-                        <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer">
-                    </form>
-                </div>';
-        publication($publi);
-        echo 
-                '<button class="commentaire" id="commentaire'.$publi.'" onclick="affiche('.$publi.')">Voir les commentaires</button>
-                <div class="com_box" id="com_box'.$publi.'">';
-        affiche($publi);
-        ecrire($publi);
-        echo 
-                    '<button class="commentaire" onclick="cache('.$publi.')">Cacher les commentaires</button>
-                </div>
-            </div>';
-    }
-
-
-    //version alternative à la précédente mais où cette fois l'utilisateur est considéré comme admin, elle est donc utilisée seulement sur mon_profil.php
-    function publi2($publi){
-        like($publi);
-        supprimer($publi);
-        message($publi);
-        $like = coeur($publi);
-        echo 
-            '<div class="publication">
-                <div class="entete">';
-        profil(coUtilisateur($publi));
-        echo 
-                    '<div class="bouton_icone_boite">
-                        <p class="nblike">'.comptelike($publi).'</p>
-                        <p class="nbcom">'.comptecom($publi).'</p>
-                        <form action="" method="post">
-                            <img src="image/coeur_'.$like.'.png">
-                            <input  class="bouton_icone" type="submit" name="like'.$publi.'" value="" id="like">
-                        </form>
-                        <button class="bouton_icone" onclick="affiche('.$publi.')"><img src="image/com.png"></button>
-                        <button class="bouton_icone" onclick="afficheMenu'.reglage2($publi).'('.$publi.')"><img src="image/option.png"></button>
+                        <button class="bouton_icone" onclick="afficheMenu'.$admin.'('.$publi.')"><img src="image/option.png"></button>
                     </div>
                     <form action="" class="admin" id="admin'.$publi.'" method="post">
                         <input class="reglage" type="submit" name="admin'.$publi.'" value="Supprimer">

@@ -17,49 +17,6 @@ session_start();
         <meta name="author" content="Kylian, Eva">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
-        <script>
-
-            //Pour afficher les commentaires
-            function affiche(publi){ 
-                var c = document.getElementById('com_box' + publi);
-                c.style.display = "inline";
-                var d = document.getElementById('commentaire'+publi);
-                d.style.display = "none";
-            }
-
-            //Pour masquer les commentaires
-            function cache(publi){ 
-                var c = document.getElementById('com_box'+publi);
-                c.style.display = "none";
-                var d = document.getElementById('commentaire'+publi);
-                d.style.display = "inline";
-            }
-
-            //Pour afficher le bouton suppression de publication
-            function afficheMenuadmin(publi){ 
-                var c = document.getElementById('admin'+publi);
-                if(c.style.display=="none"){
-                    c.style.display = "inline";
-                }
-                else{
-                    c.style.display = "none";
-                }
-            }
-
-            function affiche_story(id){
-                var c = document.getElementById('sto' + id);
-                c.style.display = "inline";
-            }
-
-            function cache_story(id){
-                var c = document.getElementById('sto' + id);
-                c.style.display = "none";
-                var d = document.getElementById('rond' + id);
-                d.style.borderColor = "#EED8C2";
-            }
-
-
-        </script>
     </head>
     <body class="display">
         <?php menu_gauche(0);?>     <!--Affiche le menu de gauche -->
@@ -85,7 +42,7 @@ session_start();
 
                         //Affiche les publications
                         while($ligne = mysqli_fetch_assoc($resultat1)){
-                            publi($ligne['id']);
+                            publi($ligne['id'],0);
                         }
                     }
                     
@@ -112,7 +69,7 @@ session_start();
                                 
                                 // Affiche les publications
                                 while ($ligne = mysqli_fetch_assoc($resultat3)) {
-                                    publi($ligne['id']);
+                                    publi($ligne['id'],0);
                                 }
                             } 
 
@@ -129,7 +86,6 @@ session_start();
             }
 
             else {
-                // Gérer l'erreur
                 echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
             }
 
