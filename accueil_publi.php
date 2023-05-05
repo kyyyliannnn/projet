@@ -4,7 +4,7 @@ session_start();
 
     include("menu_gauche.php");
     include("publi.php");
-    //include("story.php");
+    include("story.php");
 
 ?>
 
@@ -46,7 +46,7 @@ session_start();
                 }
             }
 
-/*            function affiche_story(id){
+            function affiche_story(id){
                 var c = document.getElementById('sto' + id);
                 c.style.display = "inline";
             }
@@ -57,7 +57,7 @@ session_start();
                 var d = document.getElementById('rond' + id);
                 d.style.borderColor = "#EED8C2";
             }
-*/
+
 
         </script>
     </head>
@@ -133,43 +133,37 @@ session_start();
                 echo "Erreur lors de l'exécution de la requête : " . mysqli_error($connexion);
             }
 
-            mysqli_close($connexion);
 
             ?>
         </div>
     </div>
-        <!-- <div id="story_box">
+        <div id="story_box">
             <?php
 
                 $req = 'SELECT * FROM suivi WHERE suiveur = "'.$_SESSION['utilisateur'].'"';
                 $resultat1 = mysqli_query($connexion, $req);
-                $suivi=mysqli_fetch_assoc($resultat1);
 
-                while($suivi!=null){
-                    $req2= 'SELECT * FROM utilisateur WHERE story!=0 ';
+                while($suivi = mysqli_fetch_assoc($resultat1)){
+                    $req2= 'SELECT * FROM utilisateur WHERE id='.$suivi["suivi"].' ';
                     $resultat = mysqli_query($connexion, $req2);
                     $ligne=mysqli_fetch_assoc($resultat);
 
-                    while($ligne!=null){
-
+                    if($ligne['story']!=0){
                         if(time()-$ligne['story']>86400){
                             $req3= 'UPDATE utilisateur SET story=0 WHERE id="'.$ligne['id'].'"';
+                            mysqli_query($connexion, $req3);
                         }
-
                         else{
-                            story($ligne['id']);
-                            image_story($ligne['id']);
+                            story($ligne);
+                            image_story($ligne);
                         }
-
-                        $ligne=mysqli_fetch_assoc($resultat);
                     }
                 }
-
                 mysqli_close($connexion);
                 
                 ?>
                 
-        </div> -->
+        </div>
     </body>
 </html>
 
