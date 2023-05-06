@@ -19,7 +19,7 @@
     //Vérifie si un fichier a été importé
     if( !empty($_FILES['publication']['name']) ){
       //Récupère les infos de l'image
-      $image_info = getimagesize($_FILES['photo']['tmp_name'])
+      $image_info = getimagesize($_FILES['publication']['tmp_name']);
 
       //Si on a récupéré un image
       if($image_info !== false){
@@ -47,7 +47,7 @@
           }
         }
         else{
-          $message = "L'image doit être au format png"
+          $message = "L'image doit être au format png";
         }
       }
       
