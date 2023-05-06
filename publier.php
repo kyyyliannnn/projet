@@ -18,28 +18,45 @@
 
     //Vérifie si un fichier a été importé
     if( !empty($_FILES['publication']['name']) ){
-      //Donne un nouveau nom à l'image pour qu'elle bien dans la base de données
-      $nomImage = 'image'.$user.'-'.$utilisateur['nbpubli'].'.png';
+      //Récupère les infos de l'image
+      $image_info = getimagesize($_FILES['photo']['tmp_name'])
 
-      //Déplace l'image au bon endroit tout en vérifiant que ça se passe bien
-      if(move_uploaded_file($_FILES['publication']['tmp_name'], 'publication/'.$nomImage)){
-        $new_nbpubli = $utilisateur['nbpubli'] +1;
-        //Incrémente de 1 le nombre de publications de l'utilisateur
-        $req2= 'UPDATE utilisateur SET nbpubli="'.$new_nbpubli.'" WHERE id="'.$user.'"';
-        mysqli_query($connexion, $req2);
-        //Ajoute la publication à la base de données
-        $req3= 'INSERT INTO publication (texte,utilisateur,numero) VALUES ("'.$_POST['texte'].'","'.$user.'","'.$utilisateur['nbpubli'].'")';
-        mysqli_query($connexion, $req3);
-        //Retour au profil de l'utilisateur pour qu'il voit qu'elle a été postée
-        header('location:mon_profil.php');       
-      }  
+      //Si on a récupéré un image
+      if($image_info !== false){
+      
+        //Vérifie que l'image est un png
+        if($image_info['mime'] == 'image/png'){
+          //Donne un nouveau nom à l'image pour qu'elle bien dans la base de données
+          $nomImage = 'image'.$user.'-'.$utilisateur['nbpubli'].'.png';
 
-      else     {
-        $message = 'Une erreur interne a empêché l\'upload de l\'image';     
-      }   
+          //Déplace l'image au bon endroit tout en vérifiant que ça se passe bien
+          if(move_uploaded_file($_FILES['publication']['tmp_name'], 'publication/'.$nomImage)){
+            $new_nbpubli = $utilisateur['nbpubli'] +1;
+            //Incrémente de 1 le nombre de publications de l'utilisateur
+            $req2= 'UPDATE utilisateur SET nbpubli="'.$new_nbpubli.'" WHERE id="'.$user.'"';
+            mysqli_query($connexion, $req2);
+            //Ajoute la publication à la base de données
+            $req3= 'INSERT INTO publication (texte,utilisateur,numero) VALUES ("'.$_POST['texte'].'","'.$user.'","'.$utilisateur['nbpubli'].'")';
+            mysqli_query($connexion, $req3);
+            //Retour au profil de l'utilisateur pour qu'il voit qu'elle a été postée
+            header('location:mon_profil.php');       
+          }  
+
+          else{
+            $message = 'Une erreur interne a empêché l\'upload de l\'image';     
+          }
+        }
+        else{
+          $message = "L'image doit être au format png"
+        }
+      }
+      
+      else{
+        $message = "Erreur lors de l'enregistrement de l'image";
+      }
     }
     
-    else   {
+    else{
       $message = 'Veuillez mettre une image';   
     }
   }

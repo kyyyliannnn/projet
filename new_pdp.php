@@ -18,8 +18,7 @@
       
     //Si on a récupérer un fichier
     if(!empty($_FILES['photo']['name'])){
-      //Fixe le nom de l'image pour la base de données
-      $nomImage = 'personne'.$user.'.png';
+      //Récupère les infos de l'image
       $image_info = getimagesize($_FILES['photo']['tmp_name']);          
       
       //Si on a récupéré un image
@@ -30,6 +29,8 @@
                 
           //Vérifie que l'image est un png
           if($image_info['mime'] == 'image/png'){
+            //Fixe le nom de l'image pour la base de données
+            $nomImage = 'personne'.$user.'.png';
 
             //Déplace l'image au bon endroit et vérifie que l'action s'effectue      
             if(move_uploaded_file($_FILES['photo']['tmp_name'], 'pdp/'.$nomImage)){   
