@@ -13,7 +13,7 @@ De plus, il faut supprimer les images des dossiers publications et pdp.
 Pour ce dernier, veillez à garder personne0.png qui est la photo de profil par défault.
 
 Pour remplir les tables SQL, tout peut se faire depuis le site.
-Sauf la colonne administrateur de la table utilisateur qui peut se modifier avec phpMyAdmin par exemple.
+Sauf la colonne administrateur de la table utilisateur qui doit être modifiée directement avec une ligne de commande SQL.
 Nous considérons que le rôle d'administrateur est important, c'est pour cela que l'on peut le modifer seulement de cette manière.
 
 Le site est maintenant prêt à l'emploi, merci de l'utiliser.
