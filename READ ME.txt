@@ -1,0 +1,19 @@
+Voici le projet d'IO2 de Eva Herson MI2 et Kylian Punel MI1.
+
+Pour pouvoir faire fonctionner MySQL et donc le site,
+allez sur le fichier base_donnee.php et rentrez vos paramètres d'utilisateur.
+
+Une base de données SQL est fournie dans le dossier,
+elle contient toutes les tables utiles au fonctionnement du site ainsi que des utilisateurs déjà enregistrés.
+
+Pour rénitialiser le site,
+il suffit de vider toutes les tables sauf potentiellement celle avec les universités.
+De plus, supprimez les images des dossiers publications, story et pdp. Sauf, 
+pour ce dernier, veillez à garder personne0.png qui est la photo de profil par défault.
+
+Pour remplir les tables SQL, tout peut se faire depuis le site.
+Sauf la table universite et la colonne administrateur de la table utilisateur qui doivent être modifiées directement dans le fichier projet.sql.
+Les utilisateurs ne doivent pas influencer la liste des universités et le rôle d'administrateur,
+c'est pour cela que l'on peut les modifer seulement de cette manière.
+
+Le site est maintenant prêt à l'emploi, merci de l'utiliser.
